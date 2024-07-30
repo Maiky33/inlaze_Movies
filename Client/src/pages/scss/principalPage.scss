@@ -1,0 +1,61 @@
+.ContainerRegister{ 
+
+    .headerSearchActive{    
+        width: 100% !important;
+        height: 90px;
+        z-index: 1 !important;
+    }
+
+    .ContainerContentApp{ 
+        z-index: 4 !important;
+
+        margin-top: 70px;
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+
+        .heroBanner-left,
+        .heroBanner-right{
+            width: 28.125%;
+        }
+
+        .heroBanner-left{
+            position: relative;
+            right: 20px;
+        }
+        .heroBanner-right{
+            position: relative;
+            left: 20px;
+        }
+        .formRegisterandSearchComponent{   
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40%;
+        }
+
+
+    }
+    
+
+    @media screen and (max-width: 916px) {
+        .ContainerContentApp{   
+            justify-content: center;
+            gap: 10px;
+        }
+        .heroBanner-left{   
+            display: none;
+        }
+    }
+
+    @media screen and (max-width:632px){    
+        .ContainerContentApp{   
+            flex-direction: column;
+            gap: 50px;
+            
+            .heroBanner-right{  
+                width: 80%;
+            }
+        }
+    }
+}

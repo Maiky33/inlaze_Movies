@@ -1,0 +1,73 @@
+.ContainerForm{ 
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 350px;
+    padding: 25px 25px 50px 25px;
+    border: 2px #E5E7EB solid;
+    border-radius: 16px;
+    background-color: white;
+    backdrop-filter: blur(10px);
+
+
+    .containeButtonsRegiter{    
+        display: flex;
+        justify-content: end;
+
+        .singUporSingIn{    
+            background-color: #E5E7EBCC;
+            color: #121826;
+            border-radius: 4px;
+            padding: 10px 25px;
+            cursor: pointer;
+            font-weight: 400;
+            border:0px;
+        }
+    }
+
+    .FormContain{   
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .containinputText{  
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            
+            .passwordInput,
+            .emailInput,
+            .usernameInput{
+                height: 40px;
+                outline: none;
+                border-radius: 5px;
+                border: 2px solid #E5E7EB;
+                padding-left: 20px;
+                
+            }
+
+        }
+
+        .containerButtonSingUpSend{ 
+            width: 100%;
+            display: flex;
+            justify-content: start;
+            
+            .ButtonSingUpSend{
+                background-color: #E5E7EBCC;
+                color: #121826;
+                border-radius: 4px;
+                padding: 10px 25px;
+                cursor: pointer;
+                font-weight: 400;
+                border:0px;
+            }
+        }
+
+    }
+
+    @media screen and (max-width:414px) {
+        width: 270px;
+    }
+}

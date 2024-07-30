@@ -1,0 +1,98 @@
+.ContainerHomeApp{  
+
+    .headerSearchActive{    
+        width: 100% !important;
+        height: 90px;
+        z-index: 1 !important;
+    }
+
+    .containeColumnImages{  
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+        margin-top: 10px;
+        .containeImagesMap{ 
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 50px;
+            grid-template-columns: repeat(4,1fr);
+            .imagesColumn{  
+                width: 350px;
+            }
+        }
+    }
+
+    .ContainerContentAppSearch{
+        z-index: 4 !important;
+        margin-top: 70px;
+        display: flex;
+        justify-content: space-between;
+        overflow: hidden;
+
+        .heroBanner-left,
+        .heroBanner-right{
+            width: 28.125%;
+        }
+
+        .heroBanner-left{
+            position: relative;
+            right: 20px;
+        }
+        .heroBanner-right{
+            position: relative;
+            left: 20px;
+        }
+        .formRegisterandSearchComponent{   
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40%;
+        }
+
+    }
+
+    .ContainerContentAppSearchActive{  
+        display: flex;
+        margin-top: 0px; 
+        justify-content: center;
+        animation: removePosition 2s forwards;
+    }
+    
+    @keyframes removePosition {
+        from {
+            position: relative;
+            bottom: 0px;
+            
+        }
+        to {
+            position: relative;
+            bottom: 35px;
+        }
+    }
+
+
+    
+
+    @media screen and (max-width: 916px) {
+        .ContainerContentApp{   
+            justify-content: center;
+            gap: 10px;
+        }
+        .heroBanner-left{   
+            display: none;
+        }
+    }
+
+    @media screen and (max-width:632px){    
+        .ContainerContentApp{   
+            flex-direction: column;
+            gap: 50px;
+            
+            .heroBanner-right{  
+                width: 80%;
+            }
+        }
+    }
+}
