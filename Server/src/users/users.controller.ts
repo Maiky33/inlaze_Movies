@@ -20,7 +20,7 @@ export class UsersController {
 
   @Post('refresh')
   refreshToken(@Req() request: Request) {
-    const {type, token} = request.headers['authorization']?.split(' ') || []
+    const [type, token] = request.headers['authorization']?.split(' ') || []
     return this.usersService.refreshToken(token);
   }
 }
