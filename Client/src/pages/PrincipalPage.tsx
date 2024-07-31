@@ -23,7 +23,7 @@ function PrincipalPage() {
     const fetchMovies = async () => {
       try {
         const apiKey = 'TU_API_KEY_AQUÍ';
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=9d5ff5a105f369ecb52de2149bc6efbd`);
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=`);
         serMoviesSwiper(response.data.results.slice(0, 7));
       } catch (error) {
         console.error('Error fetching popular movies:', error);
