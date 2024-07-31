@@ -1,5 +1,5 @@
 .containerSwiper{   
-
+    height: 436px;
     .Swiper{   
         z-index: 1!important;
         .movie{ 
@@ -10,7 +10,7 @@
             .TitleAndCircularMovie{ 
                 height: 183px;
                 position: relative;
-                bottom: 208px;
+                bottom: 260px;
                 display: flex;
                 justify-content: space-between;
                 align-items: end;
@@ -41,34 +41,55 @@
                         text-align: left;
                         color: #FFFFFF;
                     }
+                    @media screen and (max-width:1164px) {
+                        p{  
+                            width: 572px;
+                        }
+                    }
+                    @media screen and (max-width:866px) {
+                        h1{ 
+                            font-size: 20px;
+
+                        }
+                        p{  
+                            width: 320px;
+                            font-size: 16px;
+
+                        }
+                    }
+                    
                 }
                 .CircularDate{  
-                    width: 100px;
+                    width: 100px ;
                     .CircularProgressbar-text{  
 
                         font-weight: 700 !important;
                     }
                 }
             }
+            
         }
     }
 
+    .swiper,
     .swiper-slide{  
-        height: auto;
+        height: 436px;
     }
 
     .swiper-pagination{ 
         position: relative !important;
-        bottom: 205px !important;
+        bottom: 70px !important;
         height: 70px !important;
         background-color: #000000;
         display: flex;
         align-items: center;
         justify-content: center;
         padding-left: 50px;
+        z-index: 2 !important;
     }
     .swiper-pagination-bullet{
         background-color:#aaaaaa; /* Color de los puntos inactivos */
+        
     }
 
     @keyframes expandWidth {
@@ -80,6 +101,7 @@
         }
     }
 
+
     .swiper-pagination-bullet-active {
         width: 30px;
         border-radius: 8px;
@@ -89,18 +111,19 @@
 
     .containerItemsAndFavorites{    
         position: relative;
-        bottom: 255px;
+        bottom: 47px;
         width: 100%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        z-index: 5 !important;
+        z-index: 1 !important;
         .itemsContainer{ 
             width: 488px;
             display: flex;
             justify-content: space-between;
             color: #FFFFFF;
             margin-left: 100px;
+
             p{  
                 font-family: Inter;
                 font-size: 14px;
@@ -110,7 +133,19 @@
                 cursor: pointer;
 
             }
+            @media screen and (max-width:1276px) {
+                width: 288px; 
+            }
+            @media screen and (max-width:900px) {
+                width: 188px; 
+            }
+            @media screen and (max-width:656px) {
+                width: 100%;
+                display: none;
+                align-items: end;
+            }
         }
+        
         .IconsContainer{    
             display: flex;
             justify-content: center;
@@ -119,6 +154,17 @@
             font-size: 24px !important;
             color: #FFFFFF;
             margin-right: 80px;
+            @media screen and (max-width:798px) {
+                gap: 20px; 
+            }
+            @media screen and (max-width:656px) {
+                margin-right: 0px;
+                margin-left: 80px;
+            }
+            @media screen and (max-width:440px) {
+                margin-right: 0px;
+                margin-left: 30px;
+            }
         }
     }
 }

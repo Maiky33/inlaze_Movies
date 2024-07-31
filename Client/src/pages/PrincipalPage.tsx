@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import FormRegister from "../components/FormRegister"
 import SwiperComponent from "../components/SwiperComponent";
-
+import MoviesComponent from "../components/MoviesComponent"
 
 function PrincipalPage() {
 
@@ -22,8 +22,8 @@ function PrincipalPage() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const apiKey = 'TU_API_KEY_AQUÍ';
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=`);
+        const apiKey = process.env.REACT_APP_ACCESS_KEY;
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`);
         serMoviesSwiper(response.data.results.slice(0, 7));
       } catch (error) {
         console.error('Error fetching popular movies:', error);
@@ -65,7 +65,7 @@ function PrincipalPage() {
     <div className="PrincipalPage">   
       <NavBar isAuthenticated={isAuthenticated}/> 
       <SwiperComponent MoviesSwiper={MoviesSwiper}/>
-
+      <MoviesComponent />
       
     </div>
   );

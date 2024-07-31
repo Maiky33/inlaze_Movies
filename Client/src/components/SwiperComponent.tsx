@@ -21,11 +21,12 @@ function SwiperComponent(props:any) {
   return (
     <div className="containerSwiper">   
       <Swiper
-        // install Swiper modules
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={50}
         slidesPerView={1}
         pagination={{ clickable: true }}
+        loop={true}
+        autoplay={{delay:3000}}
         onSwiper={(swiper:any) => console.log(swiper)}
         onSlideChange={() => console.log('slide change')}
         className="Swiper"

@@ -80,6 +80,28 @@ export const AuthProvider = ({children}:any)=>{
         }
     }
 
+    const sort_byCategorys = [  
+        {   
+            name:"Popularity descending",
+            slug:"popularity.desc"
+        },{   
+            name:"Popularity ascending",
+            slug:"popularity.asc"
+        },{   
+            name:"Release date descending",
+            slug:"release_date.desc"
+        },{  
+            name:"Release date ascending",
+            slug:"release_date.asc"
+        },{   
+            name:"Revenue descending",
+            slug:"revenue.desc"
+        },{   
+            name:"Revenue ascending",
+            slug:"revenue.asc"
+        },
+    ]
+
     return( 
         <AuthContext.Provider   
             value={{
@@ -89,7 +111,8 @@ export const AuthProvider = ({children}:any)=>{
                 LogOut,
                 isAuthenticated,
                 reloginverifyToken,
-                Errors
+                Errors,
+                sort_byCategorys
             }}>  
             {children}
         </AuthContext.Provider>
