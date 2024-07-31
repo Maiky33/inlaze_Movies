@@ -7,16 +7,33 @@ import {useAuth} from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import FormRegister from "../components/FormRegister"
-
+import SwiperComponent from "../components/SwiperComponent";
 
 
 function PrincipalPage() {
 
-  const {register,handleSubmit,formState:{errors}} = useForm()
   const {SingUp,SingIn,isAuthenticated,Errors,reloginverifyToken}:any = useAuth()
+  const {register,handleSubmit,formState:{errors}} = useForm()
   const [formState, setformState] = useState(true)
+  const [MoviesSwiper, serMoviesSwiper] = useState([]);
   const navigate = useNavigate()
 
+  
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const apiKey = 'TU_API_KEY_AQUÍ';
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=9d5ff5a105f369ecb52de2149bc6efbd`);
+        serMoviesSwiper(response.data.results.slice(0, 7));
+      } catch (error) {
+        console.error('Error fetching popular movies:', error);
+      }
+    };
+
+    fetchMovies();
+  }, []);
+
+  console.log("movies",MoviesSwiper)
 
   
   const OnsubmitRegister = handleSubmit(async(values) =>{  
@@ -47,7 +64,7 @@ function PrincipalPage() {
   return (
     <div className="PrincipalPage">   
       <NavBar isAuthenticated={isAuthenticated}/> 
-
+      <SwiperComponent MoviesSwiper={MoviesSwiper}/>
 
       
     </div>

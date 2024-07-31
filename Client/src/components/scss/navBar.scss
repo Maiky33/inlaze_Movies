@@ -1,76 +1,173 @@
 .containerNav{  
     height: 69px;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1px #E5E7EBCC solid;
-    padding: 0px 40px;
+    padding-left: 110px;
+    padding-right: 70px;
     background-color: #000000;
     color: #ffffff;
     font-family: "Montserrat", sans-serif;
 
-    .titleAndLogo{  
+
+    .containerTitleAndItems{  
+        position: relative;  
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-
-        h1{ 
-            font-family: Montserrat;
-            font-size: 25px;
-            font-weight: 700;
-            line-height: 28px;
-            letter-spacing: 0.15em;
-            text-align: left;
+        gap: 90px;
+        .titleAndLogo{  
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+    
+            h1{ 
+                font-family: Montserrat;
+                font-size: 25px;
+                font-weight: 700;
+                line-height: 28px;
+                letter-spacing: 0.15em;
+                text-align: left;
+            }
+            
+    
+            .subtitleMovies{    
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 3px;
+                
+                p{  
+                    font-family: Montserrat;
+                    font-size: 12px;
+                    font-weight: 700;
+                    line-height: 13px;
+                    letter-spacing: 0.15em;
+                    text-align: center;
+                    color: #F0B90B;
+    
+                }
+    
+                .line_right,
+                .line_left{ 
+                    width: 35px;
+                    height: 4px;
+                    background-color: #F0B90B;
+                }
+    
+                .line_right{    
+                    clip-path: polygon(0 0, 100% 0, 100% 00%, 90% 100%, 0 100%);
+                }
+                .line_left{ 
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%, 0 00%);
+                }
+            }
         }
-        
 
-        .subtitleMovies{    
+        
+        .itemsNavMenuEnable,
+        .itemsNav{  
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 3px;
-            
-            p{  
-                font-family: Montserrat;
-                font-size: 12px;
-                font-weight: 700;
-                line-height: 13px;
-                letter-spacing: 0.15em;
+            gap: 90px;
+            li{ 
+                list-style: none;
+                font-family: Inter;
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 14px;
                 text-align: center;
-                color: #F0B90B;
-
+    
             }
+        }
+        .itemsNavMenuEnable{   
+            width: 110px;
+            position: absolute;
+            top: 55px;
+            right: -10px;
+            padding: 20px;
+            border-radius: 8px;
+            color: #000000;
+            background-color: #F0B90B; 
+            gap: 20px;
+            flex-direction: column;
+        }
 
-            .line_right,
-            .line_left{ 
-                width: 35px;
-                height: 4px;
-                background-color: #F0B90B;
+        @media screen and (max-width:1308px){
+            .itemsNav{  
+                gap: 50px;
             }
-
-            .line_right{    
-                clip-path: polygon(0 0, 100% 0, 100% 00%, 90% 100%, 0 100%);
+        }
+        @media screen and (max-width:1098px) {
+            .itemsNav{  
+                gap: 15px;
             }
-            .line_left{ 
-                clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%, 0 00%);
+        }
+        @media screen and (max-width:914px){
+            .itemsNav{  
+                display: none;
+            }
+        }
+        @media screen and (min-width:914px){
+            .itemsNavMenuEnable{
+                width: auto;
+                position: static; /* Restablece a su valor predeterminado */
+                top: auto; /* Restablece a su valor predeterminado */
+                right: auto; /* Restablece a su valor predeterminado */
+                padding: 0px;
+                border-radius: 0px;
+                color: #fff;
+                background-color: transparent;
+                gap: 20px;
+                flex-direction: row;
             }
         }
     }
 
-    .itemsNav{  
+
+
+    .IconsNav{  
         display: flex;
-        justify-content: center;
+        justify-content: end;
         align-items: center;
-        gap: 50px;
-        li{ 
-            list-style: none;
-            font-family: Inter;
-            font-size: 14px;
-            font-weight: 600;
-            line-height: 14px;
-            text-align: center;
+        gap: 32px;
+        
+        width: 195.23px;
+        opacity: 0px;
 
+        
+        font-size: 24.62px;
+        
+        padding: 0.77px;
+        opacity: 0px;
+
+        color: #ffffff;
+        .BurgerIcon{
+            font-size: 40px;
+            display: none;
+            cursor: pointer;
         }
     }
+    @media screen and (max-width:914px){
+        .IconsNav{  
+            .BurgerIcon{
+                font-size: 30px;
+                display: block;
+                cursor: pointer;
+            }
+        }
+    }
+
+    @media screen and (max-width:486px) {
+        padding-left: 40px;
+        padding-right: 40px;
+        .IconsNav{  
+            gap: 20px;
+        }
+    }
+
 }
+
