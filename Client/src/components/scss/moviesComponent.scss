@@ -45,6 +45,10 @@
             color: #FFFFFF;
             outline: none;
             padding: 0px 15px;
+
+            .ArrowDown{ 
+                cursor: pointer;
+            }
             
             p{  
                 font-family: Inter;
@@ -74,11 +78,15 @@
                 height: 25px;
                 padding: 0px 10px;
             }
+
+            .ActiveItem,
             p:hover{    
                 background-color: #454545;
             }
         }
     }
+
+    .containerMoviesrow,
     .containerMovies{   
         width: 80%;
         height: auto;
@@ -183,6 +191,11 @@
                 }
             }
         }
+    }
+
+    .containerMoviesrow{   
+        display: flex; 
+        flex-direction: row;
     }
 
     @media screen and (max-width:567px){

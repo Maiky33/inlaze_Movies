@@ -14,11 +14,13 @@ function PrincipalPage() {
 
   const {SingUp,SingIn,isAuthenticated,Errors,reloginverifyToken}:any = useAuth()
   const {register,handleSubmit,formState:{errors}} = useForm()
-  const [formState, setformState] = useState(true)
+  const [formState, setformState] = useState(false)
+  const [formActive, setformActive] = useState(true)
+
   const [MoviesSwiper, serMoviesSwiper] = useState([]);
   const navigate = useNavigate()
 
-  
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -32,8 +34,6 @@ function PrincipalPage() {
 
     fetchMovies();
   }, []);
-
-  console.log("movies",MoviesSwiper)
 
   
   const OnsubmitRegister = handleSubmit(async(values) =>{  
@@ -66,18 +66,26 @@ function PrincipalPage() {
       <NavBar isAuthenticated={isAuthenticated}/> 
       <SwiperComponent MoviesSwiper={MoviesSwiper}/>
       <MoviesComponent />
+
+      {formActive? 
+        <FormRegister 
+          onSubmitSingUporSingIn={onSubmitSingUporSingIn}
+          formState={formState}
+          OnsubmitRegister={OnsubmitRegister}
+          Errors={Errors}
+          errors={errors}
+          register={register}
+          setformState={setformState}
+          setformActive={setformActive}
+        />
+        :null
+      }
+      
       
     </div>
   );
 }
 
-{/* <FormRegister 
-            onSubmitSingUporSingIn={onSubmitSingUporSingIn}
-            formState={formState}
-            OnsubmitRegister={OnsubmitRegister}
-            Errors={Errors}
-            errors={errors}
-            register={register}
-          /> */}
+
 
 export default PrincipalPage;

@@ -4,7 +4,7 @@ import "./scss/moviesComponent.scss"
 import { IoIosArrowDown } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { useAuth } from "../context/AuthContext";
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { IoIosBookmark } from "react-icons/io";
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
 
@@ -18,8 +18,8 @@ function MoviesComponent(props:any) {
   const [inputValue, setinputValue] = useState()
   const [category, setcategory] = useState("now_playing")
 
-  const [selectGenresActive, setselectGenresActive] = useState(false)
-  const [selectSortByActive, setselectSortByActive] = useState(false)
+  const [selectGenresActive, setselectGenresActive] = useState(true)
+  const [selectSortByActive, setselectSortByActive] = useState(true)
 
   const [selectGenres, setselectGenres] = useState({
     id: 28,
@@ -82,14 +82,14 @@ function MoviesComponent(props:any) {
         <p>Sort By</p>
         <div onClick={()=>setselectSortByActive(!selectSortByActive)} className="SelectFilter" id="">  
           <p >{selectSortBy?.name}</p>
-          <IoIosArrowDown size={20}/>
+          <IoIosArrowDown className="ArrowDown" size={20}/>
         </div>
         { 
           selectSortByActive? 
           <div className="optionsActive"> 
             {
               sort_byCategorys.map((item:any)=>(
-                <p onClick={()=>setselectSortBy(item)}>{item.name}</p>
+                <p className={item.name === selectSortBy.name? "ActiveItem" : ""} onClick={()=>setselectSortBy(item)}>{item.name}</p>
               )) 
             }
           </div>:null
@@ -98,7 +98,7 @@ function MoviesComponent(props:any) {
         <p>Genres</p>
         <div onClick={()=>setselectGenresActive(!selectGenresActive)} className="SelectFilter" id="">  
           <p>{selectGenres.name}</p>
-          <IoIosArrowDown size={20}/>
+          <IoIosArrowDown className="ArrowDown" size={20}/>
         </div>
 
         { 
@@ -106,7 +106,7 @@ function MoviesComponent(props:any) {
           <div className="optionsActive"> 
             {
               genres?.map((item:any)=>(
-                <p onClick={()=>setselectGenres(item)}>{item.name}</p>
+                <p className={item.name === selectGenres.name? "ActiveItem" : ""} onClick={()=>setselectGenres(item)}>{item.name}</p>
               )) 
             }
           </div>:null
@@ -146,7 +146,7 @@ function MoviesComponent(props:any) {
                 </div>
                 <div className="IconsText"> 
                   <p>Favorites</p>
-                  <FaRegHeart className="heartIcon"/>
+                  <FaHeart className="heartIcon"/>
                 </div>
                 <div className="IconsText"> 
                   <p>Save</p>
