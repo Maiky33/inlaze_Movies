@@ -20,7 +20,6 @@ function PrincipalPage() {
   const [MoviesSwiper, serMoviesSwiper] = useState([]);
   const [MoviesFavorites, setMoviesFavorites] = useState([]);
 
-  const navigate = useNavigate()
 
 
   useEffect(() => {

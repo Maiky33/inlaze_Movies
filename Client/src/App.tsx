@@ -17,7 +17,7 @@ function App() {
           <Route path="/" element={<PrincipalPage/>}/>
 
           <Route element={<ProtectedRoute/>}> 
-            <Route path="/MoviePage" element={<MoviePage/>}/>
+            <Route path="/MoviePage/:MovieID" element={<MoviePage/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

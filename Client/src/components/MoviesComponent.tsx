@@ -7,6 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import { FaHeart } from "react-icons/fa";
 import { IoIosBookmark } from "react-icons/io";
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -17,7 +18,8 @@ function MoviesComponent(props:any) {
   const [Movies, setMovies] = useState([])
 
   const [inputValue, setinputValue] = useState("")
-  const [category, setcategory] = useState("now_playing")
+  const navigate = useNavigate()
+
 
   const [selectGenresActive, setselectGenresActive] = useState(true)
   const [selectSortByActive, setselectSortByActive] = useState(true)
@@ -146,6 +148,14 @@ function MoviesComponent(props:any) {
     }
   };
 
+  const onClickPageImage = (movie:any)=>{  
+    if(!isAuthenticated){  
+      setformActive(true)
+    }else{  
+      navigate(`/MoviePage/${movie.id}`)
+    }
+  }
+
  
 
   useEffect(() => {
@@ -201,7 +211,7 @@ function MoviesComponent(props:any) {
         {Movies?.map((movie:any) => (
             
           
-          <div className="CardMovie"> 
+          <div onClick={()=>onClickPageImage(movie)} className="CardMovie"> 
             <img className="ImageMovie" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} /> 
 
             <div className="containTextImage"> 

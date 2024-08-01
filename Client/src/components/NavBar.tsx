@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import "./scss/navBar.scss";
 
 import {useAuth} from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BiExit } from "react-icons/bi";
 import { FiSun } from "react-icons/fi";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -22,6 +22,8 @@ function NavBar(props:any) {
   const {LogOut,allFavorites}:any = useAuth()
   const {isAuthenticated,setformActive,setMoviesFavorites} = props
   const [Menu, setMenu] = useState(false);
+  const { MovieID }  = useParams();
+  const navigate = useNavigate()
 
   const ClickMenuBurger = () => {
     setMenu(!Menu);
@@ -35,9 +37,13 @@ function NavBar(props:any) {
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
-      const res = await allFavorites()
-      setMoviesFavorites(res)
-      console.log(res)
+      if(MovieID){
+        navigate("/")
+      }else{
+        const res = await allFavorites()
+        setMoviesFavorites(res)
+        console.log(res)
+      }
     }
   }
 
@@ -70,11 +76,10 @@ function NavBar(props:any) {
       
       <div className="IconsNav"> 
         {Menu ? <BiArrowFromBottom  onClick={ClickMenuBurger} className="BurgerIcon" /> : <BiAlignRight  onClick={ClickMenuBurger} className="BurgerIcon" />}
-        <FiSun />
         {isAuthenticated?
           <>  
-            <FaRegUserCircle/>
-            <IoNotificationsOutline/>
+            <FaRegUserCircle className="Icon"/>
+            <IoNotificationsOutline className="Icon"/>
             <ImExit className="Icon" onClick={ClickCloseSession}/>
           </>
           :
