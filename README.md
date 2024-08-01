@@ -5,7 +5,6 @@ Configuración del Servidor
 
     Clona el Repositorio
 
-    bash
 
 git clone <URL_DEL_REPOSITORIO>
 
