@@ -4,10 +4,19 @@ import { UsersController } from './users.controller';
 import { MongooseModule} from '@nestjs/mongoose';
 import { UserSchema, User } from './entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports:[MongooseModule.forFeature([{name:User.name, schema:UserSchema}])],
+  imports:[
+    MongooseModule.forFeature([{name:User.name, schema:UserSchema}]),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET, // Asegúrate de proporcionar el secreto
+      signOptions: { expiresIn: '60m' }, // Ajusta según tus necesidades
+    }),
+
+  ],
   controllers: [UsersController],
-  providers: [UsersService, JwtService],
+  providers: [UsersService, JwtService,JwtAuthGuard],
 })
 export class UsersModule {}

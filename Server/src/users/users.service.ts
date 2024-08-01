@@ -7,6 +7,10 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
+import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
+import { Request, Response } from 'express';
+
+
 type Tokens = { 
   access_token:string,
   refresh_token:string
@@ -19,7 +23,7 @@ export class UsersService {
   private jwtSvc: JwtService
 ){}
 
-  async create(createUserDto: CreateUserDto){
+  async create(createUserDto: CreateUserDto, @Res() res: Response){
     try{  
       const hashedPassword = await bcrypt.hash(createUserDto.password, 10)
       const newUser = new this.userModel({  
@@ -31,20 +35,30 @@ export class UsersService {
 
       const {access_token, refresh_token} = await this.generateTokens(user)
 
-      return{ 
-        access_token,
-        refresh_token,
-        user:this.removePassword(user),
-        status:HttpStatus.CREATED,
-        message:'User Created successfully'
-      }
+      const cookieOptions = {
+        httpOnly: true, // Solo accesible desde el servidor
+        secure: process.env.NODE_ENV === 'production', // Solo en HTTPS si está en producción
+        maxAge: 24 * 60 * 60 * 1000, // 1 día de expiración
+      };
+  
+      res.cookie('token', access_token, cookieOptions);
+
+      return res.status(HttpStatus.OK).json({
+        message: 'Login successful',
+        user: {
+          id: user._id,
+          email: user.email,
+          name: user.name,
+        },
+      });
       
     }catch(error){ 
+      console.log("error",error)
       throw new HttpException('Please check your credentials',HttpStatus.UNAUTHORIZED)
     }
   }
 
-  async loginUser(email:string,password:string){
+  async loginUser(email:string,password:string, @Res() res: Response){
     try{  
       const user = await this.userModel.findOne({email})
       const isPasswordValid = await bcrypt.compare(password,(user.password))
@@ -57,16 +71,60 @@ export class UsersService {
         const Payload = {sub: user._id, email: user.email, name:user.name}
         const {access_token,refresh_token} = await this.generateTokens(Payload)
 
-        return {
-          access_token,
-          refresh_token,
-          user: this.removePassword(user),
-          message:'Login Successful'
-        }
+        const cookieOptions = {
+          httpOnly: true, // Solo accesible desde el servidor
+          secure: process.env.NODE_ENV === 'production', // Solo en HTTPS si está en producción
+          maxAge: 24 * 60 * 60 * 1000, // 1 día de expiración
+        };
+    
+        res.cookie('token', access_token, cookieOptions);
+
+        return res.status(HttpStatus.OK).json({
+          message: 'Login successful',
+          user: {
+            id: user._id,
+            email: user.email,
+            name: user.name,
+          },
+        });
       }
       
     }catch(error){ 
       throw new HttpException('Please check your credentials',HttpStatus.UNAUTHORIZED)
+    }
+  }
+
+  async reloginUser(@Res() res: Response){
+    try {
+      const userDatares:any = res.req.user
+      const user = await this.userModel.findOne({email:userDatares.email})
+      if (!user) {
+        throw new HttpException('User not found',HttpStatus.UNAUTHORIZED)
+      }
+
+      const Payload = {sub: user._id, email: user.email, name:user.name}
+
+      const {access_token, refresh_token} = await this.generateTokens(Payload)
+  
+      const cookieOptions = {
+        httpOnly: true, // Solo accesible desde el servidor
+        secure: process.env.NODE_ENV === 'production', // Solo en HTTPS si está en producción
+        maxAge: 24 * 60 * 60 * 1000, // 1 día de expiración
+      };
+  
+      res.cookie('token', access_token, cookieOptions);
+      return res.status(HttpStatus.OK).json({
+        message: 'Login successful',
+        user: {
+          id: user._id,
+          email: user.email,
+          name: user.name,
+        },
+      });
+
+    } catch (error) {
+      console.log("error",error)
+      throw new HttpException('Relogin failed',HttpStatus.UNAUTHORIZED)
     }
   }
 
@@ -95,20 +153,34 @@ export class UsersService {
     const [access_token,refresh_token] = await Promise.all([  
 
       this.jwtSvc.signAsync(JwtPayload,{
-        secret: 'jwt_secret',
+        secret: process.env.JWT_SECRET || "jwt_secret",
         expiresIn: '1d'
       }),
 
       this.jwtSvc.signAsync(JwtPayload,{
-        secret: 'jwt_secret_refresh',
+        secret: process.env.JWT_SECRET_REFRESH || "jwt_secret_refresh",
         expiresIn: '7d'
       })
 
     ])
 
     return {  
-      access_token: access_token,
-      refresh_token: refresh_token
+      access_token,
+      refresh_token
+    }
+  }
+
+  async validateUser(token: string) {
+    try {
+      const payload = this.jwtSvc.verify(token, { secret: process.env.JWT_SECRET || "jwt_secret" });
+      const user = await this.userModel.findOne({ email: payload.email });
+
+      if (!user) {
+        return null; // Usuario no encontrado
+      }
+      return user;
+    } catch (error) {
+      return null; // Token inválido
     }
   }
 
@@ -117,6 +189,8 @@ export class UsersService {
     const {password, ...rest} = user.toObject()
     return rest
   }
+
+
 
   findAll() {
     return `This action returns all users`;

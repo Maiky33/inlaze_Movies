@@ -43,7 +43,7 @@ function FormRegister(props:any) {
           {
             !formState?
             <div className="containinputText"> 
-              <input placeholder="Enter your Name" className="usernameInput" type="text" {...register('userName', {required:true})}/>
+              <input placeholder="Enter your Name" className="usernameInput" type="text" {...register('name', {required:true})}/>
               {
                 errors.userName && <p className="errorData">UserName is Required</p>
               }

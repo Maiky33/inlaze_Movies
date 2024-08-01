@@ -37,6 +37,7 @@ function PrincipalPage() {
 
   
   const OnsubmitRegister = handleSubmit(async(values) =>{  
+    console.log("valuesInput",values)
     if(formState){
       SingIn(values)
     }else{
@@ -56,7 +57,7 @@ function PrincipalPage() {
 
   useEffect(()=>{ 
     if(isAuthenticated){  
-      navigate("/HomeApp")
+      setformActive(false)
     }
   },[isAuthenticated])
  

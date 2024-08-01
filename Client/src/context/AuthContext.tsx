@@ -27,6 +27,8 @@ export const AuthProvider = ({children}:any)=>{
     const [isAuthenticated, setisAuthenticated] = useState<any>(false)
     const [Errors, setErrors] = useState<any>([])
 
+    console.log("Errors",Errors)
+
     const SingUp = async(values:any)=>{  
         try{    
             const res = await registerRequest(values)
@@ -41,6 +43,7 @@ export const AuthProvider = ({children}:any)=>{
     const SingIn = async(values:any)=>{
         try{    
             const res = await loginRequest(values)
+            console.log("SignIn",res.data)
             setUser(res.data)
             setisAuthenticated(true)
         }catch(error:any){   
