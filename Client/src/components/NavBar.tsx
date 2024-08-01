@@ -10,22 +10,34 @@ import { BiExit } from "react-icons/bi";
 import { FiSun } from "react-icons/fi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import {BiAlignRight, BiArrowFromBottom   } from "react-icons/bi";
-
-
+import { ImExit } from "react-icons/im";
+import { IoNotificationsOutline } from "react-icons/io5";
+import { FaRegUserCircle } from "react-icons/fa";
 //Coneccion para escuchar y eviar los elementos
 
 
 
 function NavBar(props:any) {
 
-  const {isAuthenticated} = props
-  const usenavigate = useNavigate()
-
+  const {LogOut}:any = useAuth()
+  const {isAuthenticated,setformActive} = props
   const [Menu, setMenu] = useState(false);
 
   const ClickMenuBurger = () => {
     setMenu(!Menu);
   };
+
+  const ClickCloseSession =()=>{ 
+    LogOut()
+  }
+
+  const onClickFavorites = ()=>{  
+    if(!isAuthenticated){ 
+      setformActive(true)
+    }else{
+      
+    }
+  }
 
   return (
     <div className="containerNav">
@@ -47,7 +59,7 @@ function NavBar(props:any) {
           <li>Now Playing</li>
           <li>Upcoming</li>
           <li>Top Rated</li>
-          <li>Favorites</li>
+          <li onClick={onClickFavorites} className="Icon">Favorites</li>
           <li>Saved</li>
         </ul>
 
@@ -57,7 +69,15 @@ function NavBar(props:any) {
       <div className="IconsNav"> 
         {Menu ? <BiArrowFromBottom  onClick={ClickMenuBurger} className="BurgerIcon" /> : <BiAlignRight  onClick={ClickMenuBurger} className="BurgerIcon" />}
         <FiSun />
-        <BiExit />
+        {isAuthenticated?
+          <>  
+            <FaRegUserCircle/>
+            <IoNotificationsOutline/>
+            <ImExit className="Icon" onClick={ClickCloseSession}/>
+          </>
+          :
+          <BiExit className="Icon" onClick={()=>{setformActive(true)}}/>
+        }
       </div>
 
       

@@ -56,31 +56,19 @@ function PrincipalPage() {
   useEffect(()=>{ 
     if(isAuthenticated){  
       setformActive(false)
+    }else{  
+      setTimeout(()=>{    
+        setformActive(true)
+      },3000)
     }
   
   },[isAuthenticated])
  
 
   return (
-    <div className="PrincipalPage">   
-      <NavBar setformActive={setformActive} isAuthenticated={isAuthenticated}/> 
-      <SwiperComponent setformActive={setformActive} MoviesSwiper={MoviesSwiper}/>
-      <MoviesComponent setformActive={setformActive} />
-
-      {formActive? 
-        <FormRegister 
-          onSubmitSingUporSingIn={onSubmitSingUporSingIn}
-          formState={formState}
-          OnsubmitRegister={OnsubmitRegister}
-          Errors={Errors}
-          errors={errors}
-          register={register}
-          setformState={setformState}
-          setformActive={setformActive}
-        />
-        :null
-      }
+    <div className="MoviePage">   
       
+      buenas
       
     </div>
   );

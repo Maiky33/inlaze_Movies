@@ -20,6 +20,11 @@ export class UsersController {
     return this.usersService.loginUser(email,password,res);
   }
 
+  @Post('logout')
+  logout(@Body() createUserDto: CreateUserDto, @Res() res:Response) {
+    return this.usersService.logOut(res);
+  }
+
   @Get('relogin')
   @UseGuards(JwtAuthGuard)
   relogin(@Res() res:Response) {

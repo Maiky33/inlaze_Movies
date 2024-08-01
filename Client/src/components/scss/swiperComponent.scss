@@ -155,6 +155,13 @@
             font-size: 24px !important;
             color: #FFFFFF;
             margin-right: 80px;
+
+            .Icon{
+                cursor: pointer;
+            }
+            .Icon:hover{    
+                color: #F0B90B;
+            }
             @media screen and (max-width:798px) {
                 gap: 20px; 
             }

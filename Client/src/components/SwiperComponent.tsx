@@ -7,6 +7,7 @@ import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
 import { FaRegHeart } from "react-icons/fa";
 import { IoMdShare } from "react-icons/io";
 import { IoIosBookmark } from "react-icons/io";
+import { useAuth } from "../context/AuthContext";
 import 'react-circular-progressbar/dist/styles.css';
 // Import Swiper styles
 import 'swiper/css';
@@ -16,7 +17,15 @@ import 'swiper/css/scrollbar';
 
 function SwiperComponent(props:any) {
 
-  const {MoviesSwiper} = props
+  const {MoviesSwiper, setformActive} = props
+  const {isAuthenticated}:any = useAuth()
+
+
+  const onClickFavorite = ()=>{ 
+    if(!isAuthenticated){
+      setformActive(true)
+    }
+  }
 
   return (
     <div className="containerSwiper">   
@@ -70,7 +79,7 @@ function SwiperComponent(props:any) {
           <p>Info</p>
         </div>
         <div className="IconsContainer"> 
-          <FaRegHeart />
+          <FaRegHeart className="Icon" onClick={onClickFavorite}/>
           <IoIosBookmark />
           <IoMdShare />
         </div>

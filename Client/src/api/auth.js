@@ -14,7 +14,6 @@ export const logOutRequest = async (user) => axios.post(`${API}/logout`, user,{
     withCredentials: true // Esto incluye las cookies en la solicitud
 });
 
-
 export const reloginverifyTokenRequest = async () => axios.get(`${API}/relogin`,{
     withCredentials: true // Esto incluye las cookies en la solicitud
 });

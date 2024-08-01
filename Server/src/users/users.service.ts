@@ -94,6 +94,17 @@ export class UsersService {
     }
   }
 
+  async logOut(@Res() res: Response) {
+    res.clearCookie('token', {
+      httpOnly: true, // Solo accesible desde el servidor
+      secure: process.env.NODE_ENV === 'production', // Solo en HTTPS si está en producción
+    });
+
+    return res.status(HttpStatus.OK).json({
+      message: 'Logout successful',
+    });
+  }
+
   async reloginUser(@Res() res: Response){
     try {
       const userDatares:any = res.req.user

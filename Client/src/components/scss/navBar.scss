@@ -83,6 +83,12 @@
                 text-align: center;
     
             }
+            .Icon{  
+                cursor: pointer;
+            }
+            .Icon:hover{    
+                color: #F0B90B;
+            }
         }
         .itemsNavMenuEnable{   
             width: 110px;
@@ -150,6 +156,12 @@
             font-size: 40px;
             display: none;
             cursor: pointer;
+        }
+        .Icon{  
+            cursor: pointer;
+        }
+        .Icon:hover{    
+            color: #F0B90B;
         }
     }
     @media screen and (max-width:914px){

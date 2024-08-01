@@ -15,7 +15,7 @@ function MoviesComponent(props:any) {
   const keyApi = process.env.REACT_APP_ACCESS_KEY; // Reemplaza con tu Access Key de Unsplash\\
   
   const [Movies, setMovies] = useState([])
-  const [inputValue, setinputValue] = useState()
+  const [inputValue, setinputValue] = useState("")
   const [category, setcategory] = useState("now_playing")
 
   const [selectGenresActive, setselectGenresActive] = useState(true)
@@ -30,16 +30,62 @@ function MoviesComponent(props:any) {
     slug:"popularity.desc"
   })
 
-  const {sort_byCategorys}:any = useAuth()
+  const {sort_byCategorys,isAuthenticated}:any = useAuth()
   const [genres, setgenres] = useState([])
+  const {setformActive} = props
 
   const onHandleChange =(e:any)=>{ 
-    setinputValue(e.target.value)
+    if(!isAuthenticated){ 
+      setformActive(true)
+    }else{
+      setinputValue(e.target.value)
+    }
   }
 
+  const onClickselectSort = (item:any) =>{  
+    if(!isAuthenticated){ 
+      setformActive(true)
+    }else{
+      setselectSortBy(item)
+    }
+  }
+
+  const onClickselectGener = (item:any) =>{  
+    if(!isAuthenticated){ 
+      setformActive(true)
+    }else{
+      setselectGenres(item)
+    }
+  }
+
+  const onClickFavoriteCard = (itemmovie:any) =>{  
+    if(!isAuthenticated){ 
+      setformActive(true)
+    }else{
+      
+    }
+  }
 
   const fetchPhotos = async () => {
     try {
+      const responsegenre = await axios.get(`https://api.themoviedb.org/3/genre/movie/list`, {
+        params: {
+          api_key: keyApi,
+          language: 'en-US'
+        }
+      });
+      setgenres(responsegenre.data.genres);
+
+      if(inputValue !== ""){ 
+        const response = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
+          params: {
+            api_key: keyApi,
+            query: inputValue
+          }
+        });
+        setMovies(response.data.results)
+        return
+      }
       const response = await axios.get(`https://api.themoviedb.org/3/discover/movie`, {
         params: {
           api_key: keyApi,
@@ -49,14 +95,6 @@ function MoviesComponent(props:any) {
         }
       });
       setMovies(response.data.results)
-
-      const responsegenre = await axios.get(`https://api.themoviedb.org/3/genre/movie/list`, {
-        params: {
-          api_key: keyApi,
-          language: 'en-US'
-        }
-      });
-      setgenres(responsegenre.data.genres);
 
     } catch (error) {
       console.error('Error fetching popular movies:', error);
@@ -89,7 +127,7 @@ function MoviesComponent(props:any) {
           <div className="optionsActive"> 
             {
               sort_byCategorys.map((item:any)=>(
-                <p className={item.name === selectSortBy.name? "ActiveItem" : ""} onClick={()=>setselectSortBy(item)}>{item.name}</p>
+                <p className={item.name === selectSortBy.name? "ActiveItem" : ""} onClick={()=>onClickselectSort(item)}>{item.name}</p>
               )) 
             }
           </div>:null
@@ -106,7 +144,7 @@ function MoviesComponent(props:any) {
           <div className="optionsActive"> 
             {
               genres?.map((item:any)=>(
-                <p className={item.name === selectGenres.name? "ActiveItem" : ""} onClick={()=>setselectGenres(item)}>{item.name}</p>
+                <p className={item.name === selectGenres.name? "ActiveItem" : ""} onClick={()=>onClickselectGener(item)}>{item.name}</p>
               )) 
             }
           </div>:null
@@ -146,7 +184,7 @@ function MoviesComponent(props:any) {
                 </div>
                 <div className="IconsText"> 
                   <p>Favorites</p>
-                  <FaHeart className="heartIcon"/>
+                  <FaHeart onClick={()=>onClickFavoriteCard(movie)} className="heartIcon"/>
                 </div>
                 <div className="IconsText"> 
                   <p>Save</p>

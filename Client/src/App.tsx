@@ -7,6 +7,7 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import PrincipalPage from "./pages/PrincipalPage";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
+import MoviePage from "./pages/MoviePage"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<PrincipalPage/>}/>
 
           <Route element={<ProtectedRoute/>}> 
+            <Route path="/MoviePage" element={<MoviePage/>}/>
           </Route>
         </Routes>
       </BrowserRouter>

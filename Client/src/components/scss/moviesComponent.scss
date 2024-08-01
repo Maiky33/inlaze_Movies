@@ -187,6 +187,11 @@
                         .heartIcon{ 
                             margin-top: 4px;
                         }
+
+                        .heartIcon:hover{ 
+                            color: #F0B90B;
+                            cursor: pointer;
+                        }
                     }
                 }
             }
