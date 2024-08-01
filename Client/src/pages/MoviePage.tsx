@@ -58,7 +58,6 @@ function MoviePage(props:any) {
     fetchCast();
   }, []);
 
-  console.log(MoviePage)
 
   return (
     <div className="MoviePage">   

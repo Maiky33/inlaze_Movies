@@ -42,7 +42,6 @@ function NavBar(props:any) {
       }else{
         const res = await allFavorites()
         setMoviesFavorites(res)
-        console.log(res)
       }
     }
   }
