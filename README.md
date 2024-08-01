@@ -1,75 +1,80 @@
 Documentación del Proyecto
 
-Este proyecto está dividido en dos partes: el cliente (client) y el servidor (server). A continuación, se detallan los pasos necesarios para configurar y ejecutar ambos componentes.
-Configuración del Servidor
+Este proyecto está dividido en dos partes: un servidor (backend) y un cliente (frontend). A continuación, se describen los pasos necesarios para configurar y ejecutar ambos componentes.
+Estructura del Proyecto
 
-Navega a la Carpeta del Servidor
+El repositorio contiene las siguientes carpetas:
+
+    client: Carpeta del cliente (frontend).
+    server: Carpeta del servidor (backend).
+
+Configuración del Servidor (Backend)
+
+    Clona el repositorio:
+
+    bash
+
+git clone <url-del-repositorio>
+
+Navega a la carpeta del servidor:
 
 bash
-cd server
 
-Crea el Archivo de Configuración
-En la raíz de la carpeta server, crea un archivo .env con los siguientes parámetros:
+cd <nombre-del-repositorio>/server
 
-plaintext
+Crea un archivo .env en la raíz de la carpeta del servidor con el siguiente contenido:
+
+env
 
 JWT_SECRET="jwt_secret"
 JWT_SECRET_REFRESH="jwt_secret_refresh"
 
-Verifica la Configuración de la Base de Datos
-Asegúrate de que la dirección de la base de datos en app.module.ts esté configurada correctamente. La configuración ideal es:
+Verifica la configuración de la base de datos en app.module.ts:
+Asegúrate de que la dirección de la base de datos sea correcta. La configuración ideal es:
 
 typescript
 
-mongodb://127.0.0.1:27017/inlaze_api
+MongooseModule.forRoot('mongodb://127.0.0.1:27017/inlaze_api')
 
-Instala las Dependencias del Servidor
+Instala las dependencias del servidor:
 
 bash
 
-    npm install
+npm install
 
+Inicia el servidor:
 
-    
+bash
 
-Configuración del Cliente
+    npm run start
 
-    Navega a la Carpeta del Client
+Configuración del Cliente (Frontend)
+
+    Navega a la carpeta del cliente:
 
     bash
 
-cd ../client
+cd <nombre-del-repositorio>/client
 
-Crea el Archivo de Configuración
-En la raíz de la carpeta client, crea un archivo .env con el siguiente parámetro:
+Crea un archivo .env en la raíz de la carpeta del cliente con el siguiente contenido:
 
-plaintext
+env
 
 REACT_APP_ACCESS_KEY="9d5ff5a105f369ecb52de2149bc6efbd"
 
-Instala las Dependencias del Cliente
+Instala las dependencias del cliente:
 
 bash
 
-    npm install
+npm install
 
-Ejecución del Proyecto
-
-    Inicia el Servidor
-
-    bash
-
-cd server
-npm run start
-
-Inicia el Cliente
+Inicia el cliente:
 
 bash
 
-    cd ../client
     npm run start
 
 Notas Adicionales
 
-    Asegúrate de tener MongoDB en ejecución antes de iniciar el servidor.
-    Los parámetros de configuración (.env) deben ser tratados de manera segura y no deben compartirse públicamente.
+    Asegúrate de que tanto el servidor como el cliente estén en ejecución para que el proyecto funcione correctamente.
+    Para cualquier duda o problema, revisa la documentación del proyecto o contacta al equipo de soporte.
