@@ -12,12 +12,14 @@ import MoviesComponent from "../components/MoviesComponent"
 
 function PrincipalPage() {
 
-  const {SingUp,SingIn,isAuthenticated,Errors,reloginverifyToken,LogOut}:any = useAuth()
+  const {SingUp,SingIn,isAuthenticated,Errors,reloginverifyToken}:any = useAuth()
   const {register,handleSubmit,formState:{errors}} = useForm()
   const [formState, setformState] = useState(false)
   const [formActive, setformActive] = useState(false)
 
   const [MoviesSwiper, serMoviesSwiper] = useState([]);
+  const [MoviesFavorites, setMoviesFavorites] = useState([]);
+
   const navigate = useNavigate()
 
 
@@ -63,9 +65,9 @@ function PrincipalPage() {
 
   return (
     <div className="PrincipalPage">   
-      <NavBar setformActive={setformActive} isAuthenticated={isAuthenticated}/> 
+      <NavBar setMoviesFavorites={setMoviesFavorites} setformActive={setformActive} isAuthenticated={isAuthenticated}/> 
       <SwiperComponent setformActive={setformActive} MoviesSwiper={MoviesSwiper}/>
-      <MoviesComponent setformActive={setformActive} />
+      <MoviesComponent MoviesFavorites={MoviesFavorites} setformActive={setformActive} />
 
       {formActive? 
         <FormRegister 

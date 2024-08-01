@@ -15,6 +15,7 @@ function MoviesComponent(props:any) {
   const keyApi = process.env.REACT_APP_ACCESS_KEY; // Reemplaza con tu Access Key de Unsplash\\
   
   const [Movies, setMovies] = useState([])
+
   const [inputValue, setinputValue] = useState("")
   const [category, setcategory] = useState("now_playing")
 
@@ -30,9 +31,22 @@ function MoviesComponent(props:any) {
     slug:"popularity.desc"
   })
 
-  const {sort_byCategorys,isAuthenticated,addFavorite,user}:any = useAuth()
+  const {sort_byCategorys,isAuthenticated,addFavorite,user,allFavorites}:any = useAuth()
   const [genres, setgenres] = useState([])
-  const {setformActive} = props
+  const {setformActive,MoviesFavorites} = props
+
+  useEffect(()=>{ 
+    if(MoviesFavorites){  
+      const newMoviesFavorites = MoviesFavorites.map((item:any)=>{  
+        return{ 
+          ...item,
+          favorite:true
+        }
+      })
+
+      setMovies(newMoviesFavorites)
+    }
+  },[MoviesFavorites])
 
   const onHandleChange =(e:any)=>{ 
     if(!isAuthenticated){ 
@@ -62,8 +76,21 @@ function MoviesComponent(props:any) {
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
-      console.log("user._id",user.user.id)
-      console.log("itemmovie",itemmovie)
+
+      const newMoviesFavorites:any = Movies.map((item: any) => {
+        if(itemmovie.id === item.id){ 
+          return{
+            ...item,
+            favorite:true
+          }
+        }else{  
+          return item
+        }
+        
+      });
+
+      setMovies(newMoviesFavorites)
+
       addFavorite(user.user.id,itemmovie)
     }
   }
@@ -78,6 +105,8 @@ function MoviesComponent(props:any) {
       });
       setgenres(responsegenre.data.genres);
 
+      let responseMovies:any
+
       if(inputValue !== ""){ 
         const response = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
           params: {
@@ -85,18 +114,32 @@ function MoviesComponent(props:any) {
             query: inputValue
           }
         });
-        setMovies(response.data.results)
-        return
+        responseMovies = response.data.results
+      }else{  
+        const response = await axios.get(`https://api.themoviedb.org/3/discover/movie`, {
+          params: {
+            api_key: keyApi,
+            language: 'en-US',
+            sort_by: selectSortBy.slug,
+            with_genres: selectGenres.id
+          }
+        });
+        responseMovies = response.data.results
       }
-      const response = await axios.get(`https://api.themoviedb.org/3/discover/movie`, {
-        params: {
-          api_key: keyApi,
-          language: 'en-US',
-          sort_by: selectSortBy.slug,
-          with_genres: selectGenres.id
-        }
+
+      const resFavorites = await allFavorites()
+
+      const newMoviesFavorites = responseMovies.map((item: any) => {
+        const isFavorite = resFavorites.some((itemFavorite: any) => item.id === itemFavorite.id);
+  
+        return {
+          ...item,
+          favorite: isFavorite,
+        };
       });
-      setMovies(response.data.results)
+
+
+      setMovies(newMoviesFavorites)
 
     } catch (error) {
       console.error('Error fetching popular movies:', error);
@@ -154,7 +197,7 @@ function MoviesComponent(props:any) {
         
       </div>
 
-      <div className="containerMovies"> 
+      <div className={Movies.length< 5? "containerMoviesMin" :"containerMovies"}> 
         {Movies?.map((movie:any) => (
             
           
@@ -186,7 +229,7 @@ function MoviesComponent(props:any) {
                 </div>
                 <div className="IconsText"> 
                   <p>Favorites</p>
-                  <FaHeart onClick={()=>onClickFavoriteCard(movie)} className="heartIcon"/>
+                  <FaHeart onClick={()=>onClickFavoriteCard(movie)} className={movie.favorite? "heartIconActive":"heartIcon"}/>
                 </div>
                 <div className="IconsText"> 
                   <p>Save</p>

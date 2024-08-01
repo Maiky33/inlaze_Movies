@@ -86,6 +86,7 @@
         }
     }
 
+    .containerMoviesMin,
     .containerMoviesrow,
     .containerMovies{   
         width: 80%;
@@ -183,10 +184,16 @@
                             height: auto;
                         }
 
+                        .heartIconActive,
                         .BookmarkIcon,
                         .heartIcon{ 
                             margin-top: 4px;
                         }
+
+                        .heartIconActive{
+                            color: #F0B90B;
+                        }
+
 
                         .heartIcon:hover{ 
                             color: #F0B90B;
@@ -196,6 +203,10 @@
                 }
             }
         }
+    }
+
+    .containerMoviesMin{    
+       align-content: start;
     }
 
     .containerMoviesrow{   

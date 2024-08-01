@@ -19,8 +19,8 @@ import { FaRegUserCircle } from "react-icons/fa";
 
 function NavBar(props:any) {
 
-  const {LogOut}:any = useAuth()
-  const {isAuthenticated,setformActive} = props
+  const {LogOut,allFavorites}:any = useAuth()
+  const {isAuthenticated,setformActive,setMoviesFavorites} = props
   const [Menu, setMenu] = useState(false);
 
   const ClickMenuBurger = () => {
@@ -31,11 +31,13 @@ function NavBar(props:any) {
     LogOut()
   }
 
-  const onClickFavorites = ()=>{  
+  const onClickFavorites = async()=>{  
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
-      
+      const res = await allFavorites()
+      setMoviesFavorites(res)
+      console.log(res)
     }
   }
 

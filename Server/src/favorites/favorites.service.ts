@@ -10,9 +10,10 @@ export class FavoritesService {
     private favoriteModel: Model<FavoriteDocument>,
   ) {}
 
-  async create(userId: string, movie: any): Promise<Favorite> {
+  async create(userId: string, movie: any,favorite: boolean = true): Promise<Favorite> {
     const newFavorite = new this.favoriteModel({
       userId,
+      favorite,
       ...movie,
     });
     return newFavorite.save();

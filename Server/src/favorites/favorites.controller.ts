@@ -16,15 +16,18 @@ export class FavoritesController {
     if (!userId) {
       return { message: 'User ID is required' }; 
     }
-    return this.favoritesService.create(userId, movie);
+    return this.favoritesService.create(userId, movie,true);
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   findAll(@Req() req) {
-    return this.favoritesService.findAll(req.user.userId);
+    const userId = req.user.id;
+    return this.favoritesService.findAll(userId);
   }
 
   @Delete(':movieId')
+  @UseGuards(JwtAuthGuard)
   remove(@Req() req, @Param('movieId') movieId: string) {
     return this.favoritesService.remove(req.user.userId, movieId);
   }
