@@ -30,7 +30,7 @@ function MoviesComponent(props:any) {
     slug:"popularity.desc"
   })
 
-  const {sort_byCategorys,isAuthenticated}:any = useAuth()
+  const {sort_byCategorys,isAuthenticated,addFavorite,user}:any = useAuth()
   const [genres, setgenres] = useState([])
   const {setformActive} = props
 
@@ -62,7 +62,9 @@ function MoviesComponent(props:any) {
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
-      
+      console.log("user._id",user.user.id)
+      console.log("itemmovie",itemmovie)
+      addFavorite(user.user.id,itemmovie)
     }
   }
 

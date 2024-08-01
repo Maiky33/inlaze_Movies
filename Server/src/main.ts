@@ -7,10 +7,10 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
   app.use(cors({
-    origin: 'http://localhost:3000', // URL de tu aplicación React
+    origin: 'http://localhost:3000', 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true, // Si necesitas enviar cookies
-  }));
+    credentials: true,
+  })); 
   app.use(cookieParser());
   await app.listen(4000);
 }

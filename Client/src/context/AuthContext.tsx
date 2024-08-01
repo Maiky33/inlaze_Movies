@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect} from "react";
-import {registerRequest,loginRequest,logOutRequest,reloginverifyTokenRequest} from "../api/auth.js";
+import {registerRequest,loginRequest,logOutRequest,reloginverifyTokenRequest,postFavoriteMovie} from "../api/auth.js";
 
 
 interface MyContextProps {
@@ -83,6 +83,17 @@ export const AuthProvider = ({children}:any)=>{
         }
     }
 
+    const addFavorite = async (user:any, movie:any) => {
+        try {
+          const response = await postFavoriteMovie(movie);
+          console.log('Película agregada a favoritos:', response.data);
+        } catch (error) {
+          console.error('Error al agregar a favoritos:', error);
+        }
+    };
+
+
+
     const sort_byCategorys = [  
         {   
             name:"Popularity descending",
@@ -115,7 +126,8 @@ export const AuthProvider = ({children}:any)=>{
                 isAuthenticated,
                 reloginverifyToken,
                 Errors,
-                sort_byCategorys
+                sort_byCategorys,
+                addFavorite
             }}>  
             {children}
         </AuthContext.Provider>

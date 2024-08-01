@@ -1,19 +1,38 @@
 import axios from "axios";
 
 let API = 'http://localhost:4000/users'
+let APIfavorites = 'http://localhost:4000'
+
 
 export const registerRequest = async (user) => axios.post(`${API}/register`, user,{
-    withCredentials: true // Esto incluye las cookies en la solicitud
+    withCredentials: true 
 });
 
 export const loginRequest = async (user) => axios.post(`${API}/login`, user, {
-    withCredentials: true // Esto incluye las cookies en la solicitud
+    withCredentials: true 
 });
 
 export const logOutRequest = async (user) => axios.post(`${API}/logout`, user,{
-    withCredentials: true // Esto incluye las cookies en la solicitud
+    withCredentials: true 
 });
 
 export const reloginverifyTokenRequest = async () => axios.get(`${API}/relogin`,{
-    withCredentials: true // Esto incluye las cookies en la solicitud
+    withCredentials: true 
+});
+
+
+// favorites endpoint
+export const getallFavorites = async () => axios.get(`${APIfavorites}/favorites`,{
+    withCredentials: true 
+});
+
+export const postFavoriteMovie = async (movie) => axios.post(`${APIfavorites}/favorites`, movie, {
+    withCredentials: true,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+
+export const deletedFavoriteMovie = async (user) => axios.delete(`${APIfavorites}/favorites`, user,{
+    withCredentials: true 
 });

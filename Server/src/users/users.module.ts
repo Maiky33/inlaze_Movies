@@ -11,12 +11,13 @@ import { JwtModule } from '@nestjs/jwt';
   imports:[
     MongooseModule.forFeature([{name:User.name, schema:UserSchema}]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET, // Asegúrate de proporcionar el secreto
-      signOptions: { expiresIn: '60m' }, // Ajusta según tus necesidades
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '60m' }, 
     }),
 
   ],
   controllers: [UsersController],
   providers: [UsersService, JwtService,JwtAuthGuard],
+  exports: [UsersService]
 })
 export class UsersModule {}
