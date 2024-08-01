@@ -3,15 +3,9 @@ Documentación del Proyecto
 Este proyecto está dividido en dos partes: el cliente (client) y el servidor (server). A continuación, se detallan los pasos necesarios para configurar y ejecutar ambos componentes.
 Configuración del Servidor
 
-    Clona el Repositorio
-
-
-git clone <URL_DEL_REPOSITORIO>
-
 Navega a la Carpeta del Servidor
 
 bash
-
 cd server
 
 Crea el Archivo de Configuración
