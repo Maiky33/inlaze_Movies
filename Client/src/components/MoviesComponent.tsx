@@ -131,17 +131,23 @@ function MoviesComponent(props:any) {
 
       const resFavorites = await allFavorites()
 
-      const newMoviesFavorites = responseMovies.map((item: any) => {
-        const isFavorite = resFavorites.some((itemFavorite: any) => item.id === itemFavorite.id);
-  
-        return {
-          ...item,
-          favorite: isFavorite,
-        };
-      });
+      if(resFavorites){
+        const newMoviesFavorites = responseMovies.map((item: any) => {
+          const isFavorite = resFavorites.some((itemFavorite: any) => item.id === itemFavorite.id);
+    
+          return {
+            ...item,
+            favorite: isFavorite,
+          };
+        });
+        
+        setMovies(newMoviesFavorites)
+        return
+      }
+
+      setMovies(responseMovies)
 
 
-      setMovies(newMoviesFavorites)
 
     } catch (error) {
       console.error('Error fetching popular movies:', error);
