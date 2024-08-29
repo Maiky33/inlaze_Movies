@@ -14,7 +14,6 @@ import { IoIosBookmark } from "react-icons/io";
 
 function MoviePage(props:any) {
 
-  const {} = props
   const {isAuthenticated}:any = useAuth()
 
   const [formActive, setformActive] = useState(false)
@@ -55,7 +54,7 @@ function MoviePage(props:any) {
   useEffect(() => {
     fetchMovie()
     fetchCast();
-  }, []);
+  }, [MovieID]);
 
 
   return (
