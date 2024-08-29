@@ -52,7 +52,7 @@ function MoviePage(props:any) {
   useEffect(() => {
     fetchMovie()
     fetchCast();
-  }, [MovieID,fetchCast,fetchMovie]);
+  }, [MovieID]);
 
 
   return (
@@ -136,6 +136,8 @@ function MoviePage(props:any) {
                         <p className="ActorAndCharacter">{item.name}  <span> as {item.character}</span></p>
                       </div>
                     )
+                  }else{  
+                    return null
                   }
                 })
               }
