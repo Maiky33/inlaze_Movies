@@ -1,4 +1,4 @@
-import {useState,useEffect} from "react"
+import {useState,useEffect,useCallback} from "react"
 import axios from 'axios';
 import "./scss/moviesComponent.scss"
 import { IoIosArrowDown } from "react-icons/io";
@@ -97,28 +97,28 @@ function MoviesComponent(props:any) {
     }
   }
 
-  const fetchPhotos = async () => {
+  const fetchPhotos = useCallback(async () => {
     try {
-      const responsegenre = await axios.get(`https://api.themoviedb.org/3/genre/movie/list`, {
+      const responseGenre = await axios.get('https://api.themoviedb.org/3/genre/movie/list', {
         params: {
           api_key: keyApi,
           language: 'en-US'
         }
       });
-      setgenres(responsegenre.data.genres);
+      setgenres(responseGenre.data.genres);
 
-      let responseMovies:any
+      let responseMovies:any = [];
 
-      if(inputValue !== ""){ 
-        const response = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
+      if (inputValue !== "") {
+        const response = await axios.get('https://api.themoviedb.org/3/search/movie', {
           params: {
             api_key: keyApi,
             query: inputValue
           }
         });
-        responseMovies = response.data.results
-      }else{  
-        const response = await axios.get(`https://api.themoviedb.org/3/discover/movie`, {
+        responseMovies = response.data.results;
+      } else {
+        const response = await axios.get('https://api.themoviedb.org/3/discover/movie', {
           params: {
             api_key: keyApi,
             language: 'en-US',
@@ -126,33 +126,29 @@ function MoviesComponent(props:any) {
             with_genres: selectGenres.id
           }
         });
-        responseMovies = response.data.results
+        responseMovies = response.data.results;
       }
 
-      const resFavorites = await allFavorites()
+      const resFavorites = await allFavorites(); // Asegúrate de que allFavorites esté definido
 
-      if(resFavorites){
-        const newMoviesFavorites = responseMovies.map((item: any) => {
+      if (resFavorites) {
+        const newMoviesFavorites:any = responseMovies.map((item: any) => {
           const isFavorite = resFavorites.some((itemFavorite: any) => item.id === itemFavorite.id);
-    
+
           return {
             ...item,
             favorite: isFavorite,
           };
         });
-        
-        setMovies(newMoviesFavorites)
-        return
+
+        setMovies(newMoviesFavorites);
+      } else {
+        setMovies(responseMovies);
       }
-
-      setMovies(responseMovies)
-
-
-
     } catch (error) {
       console.error('Error fetching popular movies:', error);
     }
-  };
+  }, [inputValue, selectGenres, selectSortBy, keyApi, allFavorites]);
 
   const onClickPageImage = (movie:any)=>{  
     if(!isAuthenticated){  
@@ -166,7 +162,7 @@ function MoviesComponent(props:any) {
 
   useEffect(() => {
     fetchPhotos();
-  }, [inputValue,selectGenres,selectSortBy,isAuthenticated]);
+  }, [inputValue,selectGenres,selectSortBy,isAuthenticated,fetchPhotos]);
 
   return (
     <div className="containerMoviesAndFiltersComponent">   
