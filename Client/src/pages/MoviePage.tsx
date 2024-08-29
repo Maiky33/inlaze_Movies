@@ -1,7 +1,6 @@
 
 import axios from "axios";
 import { useState,useEffect } from "react";
-import { useForm } from "react-hook-form";
 import "./scss/moviePage.scss";
 import {useAuth} from "../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";

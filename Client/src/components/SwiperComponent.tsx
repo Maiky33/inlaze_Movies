@@ -1,5 +1,3 @@
-import {useState,useEffect} from "react"
-import axios from 'axios';
 import "./scss/swiperComponent.scss"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';

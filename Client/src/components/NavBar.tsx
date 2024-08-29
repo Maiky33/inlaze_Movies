@@ -1,19 +1,15 @@
 
-import axios from "axios";
-import { useState,useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 import "./scss/navBar.scss";
 
 import {useAuth} from "../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { BiExit } from "react-icons/bi";
-import { FiSun } from "react-icons/fi";
-import { RxHamburgerMenu } from "react-icons/rx";
 import {BiAlignRight, BiArrowFromBottom   } from "react-icons/bi";
 import { ImExit } from "react-icons/im";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
-//Coneccion para escuchar y eviar los elementos
+
 
 
 

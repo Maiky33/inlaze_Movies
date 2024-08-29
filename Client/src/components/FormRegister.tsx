@@ -6,7 +6,6 @@ import { IoIosArrowDropleft } from "react-icons/io";
 function FormRegister(props:any) {
 
   const { 
-    onSubmitSingUporSingIn,
     formState,
     OnsubmitRegister,
     Errors,

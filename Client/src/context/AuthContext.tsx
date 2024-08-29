@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect} from "react";
+import { createContext, useState, useContext} from "react";
 import {registerRequest,loginRequest,logOutRequest,reloginverifyTokenRequest,postFavoriteMovie,getallFavorites} from "../api/auth.js";
 
 
