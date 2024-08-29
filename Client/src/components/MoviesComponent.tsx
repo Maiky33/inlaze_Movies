@@ -166,7 +166,7 @@ function MoviesComponent(props:any) {
 
   useEffect(() => {
     fetchPhotos();
-  }, [inputValue,selectGenres,selectSortBy,isAuthenticated]);
+  }, [inputValue,selectGenres,selectSortBy,isAuthenticated,fetchPhotos]);
 
   return (
     <div className="containerMoviesAndFiltersComponent">   

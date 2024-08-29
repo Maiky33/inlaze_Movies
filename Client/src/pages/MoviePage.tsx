@@ -16,12 +16,10 @@ function MoviePage(props:any) {
 
   const {isAuthenticated}:any = useAuth()
 
-  const [formActive, setformActive] = useState(false)
   const [MoviePage, setMoviePage] = useState<any>([])
   const [cast, setCast] = useState([]);
   const { MovieID }  = useParams();
   const navigate = useNavigate()
-  const [MoviesFavorites,setMoviesFavorites]= useState()
 
 
   const keyApi = process.env.REACT_APP_ACCESS_KEY;
@@ -54,12 +52,12 @@ function MoviePage(props:any) {
   useEffect(() => {
     fetchMovie()
     fetchCast();
-  }, [MovieID]);
+  }, [MovieID,fetchCast,fetchMovie]);
 
 
   return (
     <div className="MoviePage">   
-      <NavBar setMoviesFavorites={setMoviesFavorites}  setformActive={setformActive} isAuthenticated={isAuthenticated}/> 
+      <NavBar isAuthenticated={isAuthenticated}/> 
       <div className="containerArrow"> 
         <IoIosArrowBack onClick={()=>navigate("/")} className="Arrow"/>
       </div>
@@ -130,7 +128,7 @@ function MoviePage(props:any) {
             <p className="Title">Cast</p>
             <div className="containerActors"> 
               { 
-                cast.map((item:any,index)=>{  
+                cast?.map((item:any,index)=>{  
                   if(index < 20){  
                     return (  
                       <div className="Card"> 

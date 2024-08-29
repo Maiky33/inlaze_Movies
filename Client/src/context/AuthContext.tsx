@@ -2,11 +2,6 @@ import { createContext, useState, useContext} from "react";
 import {registerRequest,loginRequest,logOutRequest,reloginverifyTokenRequest,postFavoriteMovie,getallFavorites} from "../api/auth.js";
 
 
-interface MyContextProps {
-    value: string;
-    setValue: (value: string) => void;
-}
-
 export const AuthContext = createContext<any>(undefined)
 
 
