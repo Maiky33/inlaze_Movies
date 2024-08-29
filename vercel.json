@@ -7,16 +7,19 @@
     },
     {
       "src": "Server/package.json",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["Server/dist/**/*"]
-      }
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/Server/dist/main.js"
+      "dest": "/Server/dist/main.js",
+      "methods":[ 
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE"
+      ]
     },
     {
       "src": "/(.*)",
