@@ -17,10 +17,11 @@
     "noFallthroughCasesInSwitch": false,
 
     "declaration": false,
-    "target": "es2017",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": false,
+    "rootDir": "./src",
+    "target": "es6"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
