@@ -6,14 +6,17 @@
       "use": "@vercel/static-build"
     },
     {
-      "src": "Server/package.json",
-      "use": "@vercel/node"
+      "src": "src/main.ts",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["dist/**/*"]
+      }
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/Server/dist/$1"
+      "src": "/(.*)",
+      "dest": "/dist/main.js"
     },
     {
       "src": "/(.*)",
