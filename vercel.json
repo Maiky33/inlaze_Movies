@@ -16,12 +16,9 @@
       "dest": "/Server/dist/$1"
     },
     {
-      "src": "/static/(.*)",
-      "dest": "/Client/build/static/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/Client/build/$1"
+      "dest": "/Client/$1"
     }
   ]
 }
+  
