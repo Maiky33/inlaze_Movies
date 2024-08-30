@@ -5,15 +5,24 @@ let APIfavorites = 'https://inlaze-movies-server.vercel.app'
 
 
 export const registerRequest = async (user) => axios.post(`${API}/register`, user,{
-    withCredentials: true 
+    withCredentials: true ,
+    headers: {
+      'Content-Type': 'application/json'
+    }
 });
 
 export const loginRequest = async (user) => axios.post(`${API}/login`, user, {
-    withCredentials: true 
+    withCredentials: true ,
+    headers: {
+      'Content-Type': 'application/json'
+    }
 });
 
 export const logOutRequest = async (user) => axios.post(`${API}/logout`, user,{
-    withCredentials: true 
+    withCredentials: true ,
+    headers: {
+      'Content-Type': 'application/json'
+    }
 });
 
 export const reloginverifyTokenRequest = async () => axios.get(`${API}/relogin`,{
@@ -33,6 +42,6 @@ export const postFavoriteMovie = async (movie) => axios.post(`${APIfavorites}/fa
     },
 });
 
-export const deletedFavoriteMovie = async (user) => axios.delete(`${APIfavorites}/favorites`, user,{
+export const deletedFavoriteMovie = async () => axios.delete(`${APIfavorites}/favorites`,{
     withCredentials: true 
 });
