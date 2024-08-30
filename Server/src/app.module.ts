@@ -4,8 +4,17 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import {MongooseModule} from '@nestjs/mongoose'
 import { FavoritesModule } from './favorites/favorites.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
-  imports: [ UsersModule,FavoritesModule,MongooseModule.forRoot('mongodb://127.0.0.1:27017/inlaze_api')],
+  imports: [ UsersModule,FavoritesModule,
+    ConfigModule.forRoot(), // Carga las variables de entorno
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGO_URI'),
+      }),
+      inject: [ConfigService],
+    }),],
   controllers: [AppController],
   providers: [AppService],
 })
