@@ -1,15 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-// import cors from 'cors';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
-  app.enableCors({
-    origin: 'https://inlaze-movies-client.vercel.app',
+  app.use(cors({
+    origin: "https://inlaze-movies-client.vercel.app", 
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
-  });
+  })); 
 
   app.use(cookieParser());
   
