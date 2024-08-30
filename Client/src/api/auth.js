@@ -1,7 +1,7 @@
 import axios from "axios";
 
-let API = 'http://inlaze-movies-server.vercel.app/users'
-let APIfavorites = 'http://inlaze-movies-server.vercel.app'
+let API = 'https://inlaze-movies-server.vercel.app/users'
+let APIfavorites = 'https://inlaze-movies-server.vercel.app'
 
 
 export const registerRequest = async (user) => axios.post(`${API}/register`, user,{

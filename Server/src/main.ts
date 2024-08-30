@@ -8,7 +8,7 @@ async function bootstrap() {
   
   app.use(cors({
     origin: "https://inlaze-movies-client.vercel.app", 
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: 'Content-Type, Authorization',
     credentials: true,
   })); 
