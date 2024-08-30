@@ -7,7 +7,7 @@ import { FavoritesModule } from './favorites/favorites.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [ UsersModule,FavoritesModule,
-    ConfigModule.forRoot(), // Carga las variables de entorno
+    ConfigModule.forRoot(),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
