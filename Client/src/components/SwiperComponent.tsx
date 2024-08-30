@@ -3,8 +3,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
 import { FaHeart } from "react-icons/fa";
-import { IoMdShare } from "react-icons/io";
-import { IoIosBookmark } from "react-icons/io";
 import { useAuth } from "../context/AuthContext";
 import 'react-circular-progressbar/dist/styles.css';
 // Import Swiper styles

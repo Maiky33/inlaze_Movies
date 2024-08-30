@@ -5,7 +5,6 @@ import { IoIosArrowDown } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { useAuth } from "../context/AuthContext";
 import { FaHeart } from "react-icons/fa";
-import { IoIosBookmark } from "react-icons/io";
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
 import { useNavigate } from "react-router-dom";
 

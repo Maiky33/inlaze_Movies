@@ -1,13 +1,9 @@
 
-import { useState } from "react";
 import "./scss/navBar.scss";
-
+import { useState } from "react";
 import {useAuth} from "../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
-import { BiExit } from "react-icons/bi";
 import {BiAlignRight, BiArrowFromBottom   } from "react-icons/bi";
-import { ImExit } from "react-icons/im";
-import { IoNotificationsOutline } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 
 
@@ -16,7 +12,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 function NavBar(props:any) {
 
   const {LogOut,allFavorites}:any = useAuth()
-  const {isAuthenticated,setformActive,setMoviesFavorites,setMoviesPopular,MoviesPopular} = props
+  const {isAuthenticated,setformActive,setMoviesFavorites,setMoviesPopular} = props
   const [Menu, setMenu] = useState(false);
   const { MovieID }  = useParams();
   const navigate = useNavigate()

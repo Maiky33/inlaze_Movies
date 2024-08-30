@@ -9,8 +9,6 @@ import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
 import { CiPlay1 } from "react-icons/ci";
 import { IoIosArrowBack } from "react-icons/io";
 import { FaHeart } from "react-icons/fa";
-import { IoMdShare } from "react-icons/io";
-import { IoIosBookmark } from "react-icons/io";
 
 function MoviePage(props:any) {
 
@@ -37,7 +35,7 @@ function MoviePage(props:any) {
     } catch (error) {
       console.error('Error fetching movie:', error);
     }
-  }, [MovieID, keyApi,movieID]); // Dependencias: `MovieID` y `keyApi`
+  }, [keyApi,movieID]); // Dependencias: `MovieID` y `keyApi`
 
   const fetchRecomendations = useCallback(async () => {
     try {
@@ -51,7 +49,7 @@ function MoviePage(props:any) {
     } catch (error) {
       console.error('Error fetching cast:', error);
     }
-  }, [MovieID, keyApi,movieID]); 
+  }, [keyApi,movieID]); 
 
   const recomendationsClick = (itemSelected:any) =>{  
     setMovieID(itemSelected.id)
