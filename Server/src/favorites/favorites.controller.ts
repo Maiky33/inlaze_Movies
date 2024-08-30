@@ -23,6 +23,7 @@ export class FavoritesController {
   @UseGuards(JwtAuthGuard)
   findAll(@Req() req) {
     const userId = req.user.id;
+    if(!userId) return { message: 'No one is logged in or the user was not found' }
     return this.favoritesService.findAll(userId);
   }
 

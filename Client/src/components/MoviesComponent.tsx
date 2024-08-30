@@ -97,7 +97,7 @@ function MoviesComponent(props:any) {
     }
   }
 
-  const fetchPhotos = useCallback(async () => {
+  const fetchMovies = useCallback(async () => {
     try {
       const responseGenre = await axios.get('https://api.themoviedb.org/3/genre/movie/list', {
         params: {
@@ -161,8 +161,8 @@ function MoviesComponent(props:any) {
  
 
   useEffect(() => {
-    fetchPhotos();
-  }, [inputValue,selectGenres,selectSortBy,isAuthenticated,fetchPhotos]);
+    fetchMovies();
+  }, [inputValue,selectGenres,selectSortBy,isAuthenticated,fetchMovies]);
 
   return (
     <div className="containerMoviesAndFiltersComponent">   
