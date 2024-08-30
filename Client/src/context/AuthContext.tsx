@@ -1,4 +1,4 @@
-import { createContext, useState, useContext} from "react";
+import { createContext, useState, useContext, useCallback} from "react";
 import {registerRequest,loginRequest,logOutRequest,reloginverifyTokenRequest,postFavoriteMovie,getallFavorites} from "../api/auth.js";
 
 
@@ -62,7 +62,7 @@ export const AuthProvider = ({children}:any)=>{
         }
     }
 
-    const reloginverifyToken = async()=>{   
+    const reloginverifyToken = useCallback(async()=>{   
         try{    
             const res = await reloginverifyTokenRequest()
             if(res.status === 200){    
@@ -76,7 +76,7 @@ export const AuthProvider = ({children}:any)=>{
             }
             setErrors([error?.response?.data?.message])
         }
-    }
+    }, []);
 
     const addFavorite = async (user:any, movie:any) => {
         try {
