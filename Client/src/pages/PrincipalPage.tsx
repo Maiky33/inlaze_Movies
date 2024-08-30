@@ -51,7 +51,7 @@ function PrincipalPage() {
 
   useEffect(()=>{ 
     reloginverifyToken()
-  },[reloginverifyToken])
+  },[])
 
   useEffect(()=>{ 
     if(isAuthenticated){  
