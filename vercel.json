@@ -2,28 +2,27 @@
   "version": 2,
   "builds": [
     {
-      "src": "Client/package.json",
-      "use": "@vercel/static-build"
+      "src": "server/package.json",  
+      "use": "@vercel/node",         
+      "config": {
+        "includeFiles": [
+          "server/dist/**/*"       
+        ]
+      }
     },
     {
-      "src": "src/main.ts",
-      "use": "@vercel/node"
+      "src": "client/package.json",  
+      "use": "@vercel/static-build"
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "src/main.js",
-      "methods":[ 
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE"
-      ]
+      "src": "/api/(.*)",           
+      "dest": "server/dist/main.js" 
     },
     {
-      "src": "/(.*)",
-      "dest": "/Client/$1"
+      "src": "/(.*)",               
+      "dest": "client/$1"           
     }
   ]
 }
