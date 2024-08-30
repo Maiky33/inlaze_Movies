@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { useState,useEffect} from "react";
+import { useState,useEffect,useCallback} from "react";
 import "./scss/moviePage.scss";
 import {useAuth} from "../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,7 +24,7 @@ function MoviePage(props:any) {
 
   const keyApi = process.env.REACT_APP_ACCESS_KEY;
   
-  const fetchMovie = async () => {
+  const fetchMovie = useCallback(async () => {
     try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/${MovieID}`, {
         params: {
@@ -35,9 +35,9 @@ function MoviePage(props:any) {
     } catch (error) {
       console.error('Error fetching movie:', error);
     }
-  }
+  }, [MovieID, keyApi]); // Dependencias: `MovieID` y `keyApi`
 
-  const fetchCast = async () => {
+  const fetchCast = useCallback(async () => {
     try {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/${MovieID}/credits`, {
         params: {
@@ -48,12 +48,12 @@ function MoviePage(props:any) {
     } catch (error) {
       console.error('Error fetching cast:', error);
     }
-  }
+  }, [MovieID, keyApi]); 
 
   useEffect(() => {
     fetchMovie();
     fetchCast();
-  }, []); 
+  }, [fetchMovie, fetchCast, MovieID]); 
 
 
   return (

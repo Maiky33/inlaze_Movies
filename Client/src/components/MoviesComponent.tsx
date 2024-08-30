@@ -1,4 +1,4 @@
-import {useState,useEffect} from "react"
+import {useState,useEffect,useCallback} from "react"
 import axios from 'axios';
 import "./scss/moviesComponent.scss"
 import { IoIosArrowDown } from "react-icons/io";
@@ -97,7 +97,7 @@ function MoviesComponent(props:any) {
     }
   }
 
-  const fetchPhotos = async () => {
+  const fetchPhotos = useCallback(async () => {
     try {
       const responseGenre = await axios.get('https://api.themoviedb.org/3/genre/movie/list', {
         params: {
@@ -148,7 +148,7 @@ function MoviesComponent(props:any) {
     } catch (error) {
       console.error('Error fetching popular movies:', error);
     }
-  }
+  }, [inputValue, selectGenres, selectSortBy, keyApi, allFavorites]);
 
   const onClickPageImage = (movie:any)=>{  
     if(!isAuthenticated){  
@@ -162,7 +162,7 @@ function MoviesComponent(props:any) {
 
   useEffect(() => {
     fetchPhotos();
-  }, [inputValue,selectGenres,selectSortBy,isAuthenticated]);
+  }, [inputValue,selectGenres,selectSortBy,isAuthenticated,fetchPhotos]);
 
   return (
     <div className="containerMoviesAndFiltersComponent">   
