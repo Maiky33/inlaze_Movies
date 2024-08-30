@@ -71,12 +71,20 @@
 
                 }
     
+                
                 .SignUp{
                     background-color: #F0B90B;
                 }
                 .LogIn{ 
                     background-color: #262626;
                 }
+
+                @media screen and (max-width:414px) {   
+                    .LogIn,
+                    .SignUp{  
+                        width: 198px;  
+                    } 
+                }  
             }
         }
     }
@@ -170,6 +178,7 @@
                 border-radius: 5px;
                 border: 2px solid #E5E7EB;
                 padding-left: 20px;
+                box-sizing: border-box;
                 
             }
             .errorData{ 
@@ -183,19 +192,68 @@
             justify-content: center;
             
             .ButtonSingUpSend{
-                background-color: #E5E7EBCC;
+                width: 424px;
+                height: 46px;
+                background-color: #F0B90B;
                 color: #121826;
                 border-radius: 4px;
                 padding: 10px 25px;
                 cursor: pointer;
                 font-weight: 400;
                 border:0px;
+
+                font-family: Inter;
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 14px;
+                text-align: center;
+
             }
         }
 
     }
+    
+
+    @media screen and (max-width:1334px) {
+        width: 570px;
+        height: auto;
+        .Welovehaving{  
+            margin-top: 30px;
+        }
+        .WelcomeAndImage{   
+            display: none;
+        }
+    }
+
+    @media screen and (max-width:582px) {
+        width: 370px;
+        .FormContain{
+            .containinputText{  
+                .passwordInput,
+                .emailInput,
+                .usernameInput{
+                    width: 304px;
+                }
+            }
+        }
+    }
 
     @media screen and (max-width:414px) {
         width: 270px;
+
+        .FormContain{
+            .containinputText{  
+                .passwordInput,
+                .emailInput,
+                .usernameInput{
+                    width: 204px;
+                }
+            }
+        }
+        .ContaineFormAndButtonExit{
+            padding: 10px 20px;
+        }
     }
+
+    
 }

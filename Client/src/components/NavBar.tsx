@@ -16,7 +16,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 function NavBar(props:any) {
 
   const {LogOut,allFavorites}:any = useAuth()
-  const {isAuthenticated,setformActive,setMoviesFavorites} = props
+  const {isAuthenticated,setformActive,setMoviesFavorites,setMoviesPopular,MoviesPopular} = props
   const [Menu, setMenu] = useState(false);
   const { MovieID }  = useParams();
   const navigate = useNavigate()
@@ -36,8 +36,21 @@ function NavBar(props:any) {
       if(MovieID){
         navigate("/")
       }else{
+        setMoviesPopular(false)
         const res = await allFavorites()
         setMoviesFavorites(res)
+      }
+    }
+  }
+
+  const onClickPopular = async()=>{  
+    if(!isAuthenticated){ 
+      setformActive(true)
+    }else{
+      if(MovieID){  
+        navigate("/")
+      }else{  
+        setMoviesPopular(true)
       }
     }
   }
@@ -48,7 +61,7 @@ function NavBar(props:any) {
       <div className="containerTitleAndItems"> 
 
         <div className="titleAndLogo"> 
-          <h1>INLAZE</h1>
+          <h1>QUICKBET</h1>
           <div className="subtitleMovies"> 
             <span className="line_left"></span>
             <p>Movies</p> 
@@ -58,12 +71,8 @@ function NavBar(props:any) {
 
       
         <ul className={!Menu ? "itemsNav": "itemsNavMenuEnable"}>  
-          <li>Popular</li>
-          <li>Now Playing</li>
-          <li>Upcoming</li>
-          <li>Top Rated</li>
+          <li onClick={onClickPopular}  className="Icon">Popular</li>
           <li onClick={onClickFavorites} className="Icon">Favorites</li>
-          <li>Saved</li>
         </ul>
 
         
@@ -73,12 +82,10 @@ function NavBar(props:any) {
         {Menu ? <BiArrowFromBottom  onClick={ClickMenuBurger} className="BurgerIcon" /> : <BiAlignRight  onClick={ClickMenuBurger} className="BurgerIcon" />}
         {isAuthenticated?
           <>  
-            <FaRegUserCircle className="Icon"/>
-            <IoNotificationsOutline className="Icon"/>
-            <ImExit className="Icon" onClick={ClickCloseSession}/>
+            <FaRegUserCircle className="IconAuthentificated" onClick={ClickCloseSession}/>
           </>
           :
-          <BiExit className="Icon" onClick={()=>{setformActive(true)}}/>
+          <FaRegUserCircle className="Icon" onClick={()=>{setformActive(true)}}/>
         }
       </div>
 

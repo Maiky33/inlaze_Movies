@@ -2,7 +2,7 @@ import "./scss/swiperComponent.scss"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { IoMdShare } from "react-icons/io";
 import { IoIosBookmark } from "react-icons/io";
 import { useAuth } from "../context/AuthContext";
@@ -31,7 +31,7 @@ function SwiperComponent(props:any) {
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={50}
         slidesPerView={1}
-        pagination={{ clickable: true }}
+        
         loop={true}
         autoplay={{delay:3000}}
         onSwiper={(swiper:any) => console.log(swiper)}
@@ -50,7 +50,9 @@ function SwiperComponent(props:any) {
                 <p>Rating: {movie.overview}</p>
               </div>
 
-              <div className="CircularDate"> 
+              <div className="CircularDate">
+                <FaHeart className="Icon" onClick={onClickFavorite}/>
+
                 <CircularProgressbar
                   value={Math.round(movie.vote_average*10)}
                   text={`${Math.round(movie.vote_average*10)}%`}
@@ -60,7 +62,6 @@ function SwiperComponent(props:any) {
                     trailColor: '#e0e0e0', // Color del círculo de fondo
                     strokeLinecap: 'round', // Estilo del borde
                   })}
-                  
                 />
               </div>
               
@@ -68,20 +69,6 @@ function SwiperComponent(props:any) {
           </SwiperSlide>
         ))} 
       </Swiper>
-
-      <div className="containerItemsAndFavorites"> 
-        <div className="itemsContainer"> 
-          <p>Trama</p>
-          <p>Cast</p>
-          <p>Gallery</p>
-          <p>Info</p>
-        </div>
-        <div className="IconsContainer"> 
-          <FaRegHeart className="Icon" onClick={onClickFavorite}/>
-          <IoIosBookmark />
-          <IoMdShare />
-        </div>
-      </div>
     </div>
   )
 }

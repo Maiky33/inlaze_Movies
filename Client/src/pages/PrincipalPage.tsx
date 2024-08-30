@@ -19,6 +19,7 @@ function PrincipalPage() {
   const [MoviesSwiper, serMoviesSwiper] = useState([]);
   const [MoviesFavorites, setMoviesFavorites] = useState([]);
 
+  const [MoviesPopular, setMoviesPopular] = useState(false);
 
 
   useEffect(() => {
@@ -63,9 +64,9 @@ function PrincipalPage() {
 
   return (
     <div className="PrincipalPage">   
-      <NavBar setMoviesFavorites={setMoviesFavorites} setformActive={setformActive} isAuthenticated={isAuthenticated}/> 
+      <NavBar MoviesPopular={MoviesPopular} setMoviesPopular={setMoviesPopular} setMoviesFavorites={setMoviesFavorites} setformActive={setformActive} isAuthenticated={isAuthenticated}/> 
       <SwiperComponent setformActive={setformActive} MoviesSwiper={MoviesSwiper}/>
-      <MoviesComponent MoviesFavorites={MoviesFavorites} setformActive={setformActive} />
+      <MoviesComponent MoviesPopular={MoviesPopular} setMoviesPopular={setMoviesPopular} MoviesFavorites={MoviesFavorites} setformActive={setformActive} />
 
       {formActive? 
         <FormRegister 

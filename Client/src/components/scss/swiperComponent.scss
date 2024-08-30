@@ -10,12 +10,13 @@
             .TitleAndCircularMovie{ 
                 height: 183px;
                 position: relative;
-                bottom: 260px;
+                bottom: 207px;
                 display: flex;
                 justify-content: space-between;
                 align-items: end;
-                padding: 0px 120px 0px 70px;
+                padding: 0px 70px 20px 70px;
                 z-index: 5 !important;
+                box-shadow: inset 0 -85px 25px #000000 !important;
 
                 .containerTitle{    
                     display: flex;
@@ -60,9 +61,20 @@
                     
                 }
                 .CircularDate{  
-                    width: 100px ;
+                    display: flex;
+                    align-items: center;
+                    gap: 50px;
+                    width: 155px ;
+                    color: #FFFFFF;
+                    .Icon{
+                        font-size: 40px;
+                    }
+                    .Icon:hover{
+                        font-size: 40px;
+                        color: #F0B90B;
+                        cursor: pointer;
+                    }
                     .CircularProgressbar-text{  
-
                         font-weight: 700 !important;
                     }
                 }

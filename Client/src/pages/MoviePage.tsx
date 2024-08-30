@@ -8,7 +8,7 @@ import NavBar from "../components/NavBar";
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
 import { CiPlay1 } from "react-icons/ci";
 import { IoIosArrowBack } from "react-icons/io";
-import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 import { IoMdShare } from "react-icons/io";
 import { IoIosBookmark } from "react-icons/io";
 
@@ -17,16 +17,18 @@ function MoviePage(props:any) {
   const {isAuthenticated}:any = useAuth()
 
   const [MoviePage, setMoviePage] = useState<any>([])
-  const [cast, setCast] = useState([]);
+  const [recomendations, setRecomendations] = useState([]);
   const { MovieID }  = useParams();
+
   const navigate = useNavigate()
 
+  const [movieID , setMovieID] = useState(MovieID)
 
   const keyApi = process.env.REACT_APP_ACCESS_KEY;
   
   const fetchMovie = useCallback(async () => {
     try {
-      const response = await axios.get(`https://api.themoviedb.org/3/movie/${MovieID}`, {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}`, {
         params: {
           api_key: keyApi
         }
@@ -35,26 +37,32 @@ function MoviePage(props:any) {
     } catch (error) {
       console.error('Error fetching movie:', error);
     }
-  }, [MovieID, keyApi]); // Dependencias: `MovieID` y `keyApi`
+  }, [MovieID, keyApi,movieID]); // Dependencias: `MovieID` y `keyApi`
 
-  const fetchCast = useCallback(async () => {
+  const fetchRecomendations = useCallback(async () => {
     try {
-      const response = await axios.get(`https://api.themoviedb.org/3/movie/${MovieID}/credits`, {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}/recommendations`, {
         params: {
-          api_key: keyApi
+          api_key: keyApi,
+          language: 'en-US',
         }
       });
-      setCast(response.data.cast);
+      setRecomendations(response.data.results);
     } catch (error) {
       console.error('Error fetching cast:', error);
     }
-  }, [MovieID, keyApi]); 
+  }, [MovieID, keyApi,movieID]); 
+
+  const recomendationsClick = (itemSelected:any) =>{  
+    setMovieID(itemSelected.id)
+  }
 
   useEffect(() => {
     fetchMovie();
-    fetchCast();
-  }, [fetchMovie, fetchCast, MovieID]); 
+    fetchRecomendations();
+  }, [fetchMovie, fetchRecomendations, MovieID]); 
 
+  
 
   return (
     <div className="MoviePage">   
@@ -105,9 +113,7 @@ function MoviePage(props:any) {
                      <p>Users Score</p>   
                 </div>
                 <div className="containerItems"> 
-                  <FaRegHeart />
-                  <IoMdShare />
-                  <IoIosBookmark />
+                  <FaHeart />
                 </div>
 
               </div>
@@ -126,15 +132,15 @@ function MoviePage(props:any) {
       <div className="containerCastAndDirector"> 
         <div className="containeCast"> 
           <div className="Cast"> 
-            <p className="Title">Cast</p>
-            <div className="containerActors"> 
+            <p className="Title">Recommendations</p>
+            <div className="containerRecomendations"> 
               { 
-                cast?.map((item:any,index)=>{  
+                recomendations?.map((item:any,index)=>{  
                   if(index < 20){  
                     return (  
                       <div className="Card"> 
-                        <img className="Image" src={`https://image.tmdb.org/t/p/w500${item.profile_path}`} alt="" />
-                        <p className="ActorAndCharacter">{item.name}  <span> as {item.character}</span></p>
+                        <img onClick={()=>recomendationsClick(item)} className="Image" src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`} alt="" />
+                        <p className="ActorAndCharacter">{item.title}</p>
                       </div>
                     )
                   }else{  
@@ -145,30 +151,9 @@ function MoviePage(props:any) {
             </div>
           </div>
 
-          { MoviePage.map((movie:any)=>(  
-
-            <div className="plotSummary"> 
-              <h3>Plot Summary</h3>
-              <p>{movie.overview}</p>
-            </div>
-            ))
-          }
         </div>
 
-          <div className="containerDirector"> 
-              { MoviePage.map((movie:any)=>(  
-
-                <div className="extraData"> 
-                  <h4>Status</h4>
-                  <p>{movie.status}</p>
-                  <h4>Tagline</h4>
-                  <p>{movie.tagline}</p>
-                  <h4>languages</h4>
-                  <p>{movie.spoken_languages[0].name}</p>
-                </div>
-                ))
-              }
-          </div>
+          
         </div>
 
     </div>

@@ -22,20 +22,15 @@ function MoviesComponent(props:any) {
 
 
   const [selectGenresActive, setselectGenresActive] = useState(true)
-  const [selectSortByActive, setselectSortByActive] = useState(true)
 
   const [selectGenres, setselectGenres] = useState({
     id: 28,
     name: "Action"
   })
-  const [selectSortBy, setselectSortBy] = useState({  
-    name:"Popularity descending",
-    slug:"popularity.desc"
-  })
 
-  const {sort_byCategorys,isAuthenticated,addFavorite,user,allFavorites}:any = useAuth()
+  const {isAuthenticated,addFavorite,user,allFavorites}:any = useAuth()
   const [genres, setgenres] = useState([])
-  const {setformActive,MoviesFavorites} = props
+  const {setformActive,MoviesFavorites,MoviesPopular,setMoviesPopular} = props
 
   useEffect(()=>{ 
     if(MoviesFavorites){  
@@ -58,18 +53,12 @@ function MoviesComponent(props:any) {
     }
   }
 
-  const onClickselectSort = (item:any) =>{  
-    if(!isAuthenticated){ 
-      setformActive(true)
-    }else{
-      setselectSortBy(item)
-    }
-  }
 
   const onClickselectGener = (item:any) =>{  
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
+      setMoviesPopular(false)
       setselectGenres(item)
     }
   }
@@ -92,7 +81,6 @@ function MoviesComponent(props:any) {
       });
 
       setMovies(newMoviesFavorites)
-
       addFavorite(user.user.id,itemmovie)
     }
   }
@@ -122,8 +110,20 @@ function MoviesComponent(props:any) {
           params: {
             api_key: keyApi,
             language: 'en-US',
-            sort_by: selectSortBy.slug,
+            sort_by: "popularity.desc",
             with_genres: selectGenres.id
+          }
+        });
+        responseMovies = response.data.results;
+      }
+
+      if(MoviesPopular){  
+        const response = await axios.get('https://api.themoviedb.org/3/discover/movie', {
+          params: {
+            api_key: keyApi,
+            language: 'en-US',
+            sort_by: "popularity.desc",
+            with_genres: "28"
           }
         });
         responseMovies = response.data.results;
@@ -145,10 +145,11 @@ function MoviesComponent(props:any) {
       } else {
         setMovies(responseMovies);
       }
+
     } catch (error) {
       console.error('Error fetching popular movies:', error);
     }
-  }, [inputValue, selectGenres, selectSortBy, keyApi, allFavorites]);
+  }, [inputValue, selectGenres, keyApi, allFavorites,MoviesPopular]);
 
   const onClickPageImage = (movie:any)=>{  
     if(!isAuthenticated){  
@@ -162,7 +163,7 @@ function MoviesComponent(props:any) {
 
   useEffect(() => {
     fetchMovies();
-  }, [inputValue,selectGenres,selectSortBy,isAuthenticated,fetchMovies]);
+  }, [inputValue,selectGenres,isAuthenticated,fetchMovies,MoviesPopular]);
 
   return (
     <div className="containerMoviesAndFiltersComponent">   
@@ -174,21 +175,7 @@ function MoviesComponent(props:any) {
           <CiSearch className="searchIcon"/>
         </div>
       
-        <p>Sort By</p>
-        <div onClick={()=>setselectSortByActive(!selectSortByActive)} className="SelectFilter" id="">  
-          <p >{selectSortBy?.name}</p>
-          <IoIosArrowDown className="ArrowDown" size={20}/>
-        </div>
-        { 
-          selectSortByActive? 
-          <div className="optionsActive"> 
-            {
-              sort_byCategorys.map((item:any)=>(
-                <p className={item.name === selectSortBy.name? "ActiveItem" : ""} onClick={()=>onClickselectSort(item)}>{item.name}</p>
-              )) 
-            }
-          </div>:null
-        }
+  
     
         <p>Genres</p>
         <div onClick={()=>setselectGenresActive(!selectGenresActive)} className="SelectFilter" id="">  
@@ -209,49 +196,48 @@ function MoviesComponent(props:any) {
         
       </div>
 
-      <div className={Movies.length< 5? "containerMoviesMin" :"containerMovies"}> 
-        {Movies?.map((movie:any) => (
-            
+      <div className="containerMoviesandtitle">
+        {MoviesPopular? <p className="title">Popular</p> : null}
+
+        <div className={Movies.length< 5? "containerMoviesMin" :"containerMovies"}> 
           
-          <div onClick={()=>onClickPageImage(movie)} className="CardMovie"> 
-            <img className="ImageMovie" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} /> 
+          {Movies?.map((movie:any) => (
+            <div  className="CardMovie"> 
+              <img onClick={()=>onClickPageImage(movie)} className="ImageMovie" src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} /> 
 
-            <div className="containTextImage"> 
-              <div className="titleAndDate"> 
-                <h3>{movie.title}</h3>
-                <p>{movie.release_date}</p>
-              </div>
+              <div className="containTextImage"> 
+                <div className="titleAndDate"> 
+                  <h3>{movie.title}</h3>
+                  <p>{movie.release_date}</p>
+                </div>
 
-              <div className="containerIcons"> 
-                <div className="IconsText"> 
-                  <p>Rating</p>
-                  <div className="ProgressCicular"> 
-                    <CircularProgressbar
-                      value={Math.round(movie.vote_average*10)}
-                      text={`${Math.round(movie.vote_average*10)}%`}
-                      styles={buildStyles({
-                        pathColor: "#4DA14F", // Color del progreso
-                        textColor: "#ffffff", // Color del texto
-                        trailColor: '#e0e0e0', // Color del círculo de fondo
-                        strokeLinecap: 'round', // Estilo del borde
-                      })}
-                    />
+                <div className="containerIcons"> 
+                  <div className="IconsText"> 
+                    <p>Rating</p>
+                    <div className="ProgressCicular"> 
+                      <CircularProgressbar
+                        value={Math.round(movie.vote_average*10)}
+                        text={`${Math.round(movie.vote_average*10)}%`}
+                        styles={buildStyles({
+                          pathColor: "#4DA14F", // Color del progreso
+                          textColor: "#ffffff", // Color del texto
+                          trailColor: '#e0e0e0', // Color del círculo de fondo
+                          strokeLinecap: 'round', // Estilo del borde
+                        })}
+                      />
+                    </div>
+                
                   </div>
+                  <div className="IconsText"> 
+                    <p>Favorites</p>
+                    <FaHeart onClick={()=>onClickFavoriteCard(movie)} className={movie.favorite? "heartIconActive":"heartIcon"}/>
+                  </div>
+                </div>
+              </div>      
+            </div>
               
-                </div>
-                <div className="IconsText"> 
-                  <p>Favorites</p>
-                  <FaHeart onClick={()=>onClickFavoriteCard(movie)} className={movie.favorite? "heartIconActive":"heartIcon"}/>
-                </div>
-                <div className="IconsText"> 
-                  <p>Save</p>
-                  <IoIosBookmark className="BookmarkIcon"/>
-                </div>
-              </div>
-            </div>      
-          </div>
-            
-          ))} 
+            ))} 
+        </div>
       </div>
     </div>
   )

@@ -19,7 +19,7 @@ export const useAuth = ()=>{
 export const AuthProvider = ({children}:any)=>{    
 
     const [user, setUser] = useState<any>(null)
-    const [isAuthenticated, setisAuthenticated] = useState<any>(false)
+    const [isAuthenticated, setisAuthenticated] = useState<any>(true)
     const [Errors, setErrors] = useState<any>([])
 
     console.log("Errors",Errors)
@@ -97,28 +97,6 @@ export const AuthProvider = ({children}:any)=>{
     }
     
 
-    const sort_byCategorys = [  
-        {   
-            name:"Popularity descending",
-            slug:"popularity.desc"
-        },{   
-            name:"Popularity ascending",
-            slug:"popularity.asc"
-        },{   
-            name:"Release date descending",
-            slug:"release_date.desc"
-        },{  
-            name:"Release date ascending",
-            slug:"release_date.asc"
-        },{   
-            name:"Revenue descending",
-            slug:"revenue.desc"
-        },{   
-            name:"Revenue ascending",
-            slug:"revenue.asc"
-        },
-    ]
-
     return( 
         <AuthContext.Provider   
             value={{
@@ -129,7 +107,6 @@ export const AuthProvider = ({children}:any)=>{
                 isAuthenticated,
                 reloginverifyToken,
                 Errors,
-                sort_byCategorys,
                 addFavorite,
                 allFavorites
             }}>  

@@ -67,7 +67,7 @@ function FormRegister(props:any) {
           
           <div className="containerButtonSingUpSend"> 
             <button className="ButtonSingUpSend" type="submit">  
-              {!formState? 'Sing Up' : 'Sing In'}
+              {!formState? 'Register with your Email' : 'Continue'}
             </button>
           </div>
         </form>
