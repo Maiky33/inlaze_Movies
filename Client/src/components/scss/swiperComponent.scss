@@ -58,6 +58,15 @@
 
                         }
                     }
+
+                    @media screen and (max-width:434px) {
+                        h3{ 
+                            width: auto;
+                        }
+                        p{  
+                            display: none;
+                        }
+                    }
                     
                 }
                 .CircularDate{  
@@ -66,6 +75,11 @@
                     gap: 50px;
                     width: 155px ;
                     color: #FFFFFF;
+
+                    @media screen and (max-width:434px) {   
+                        display: none;
+                    }
+
                     .Icon{
                         font-size: 40px;
                     }
