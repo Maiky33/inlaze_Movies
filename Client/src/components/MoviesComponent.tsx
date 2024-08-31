@@ -6,7 +6,7 @@ import { CiSearch } from "react-icons/ci";
 import { useAuth } from "../context/AuthContext";
 import { FaHeart } from "react-icons/fa";
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 
@@ -18,6 +18,7 @@ function MoviesComponent(props:any) {
 
   const [inputValue, setinputValue] = useState("")
   const navigate = useNavigate()
+  const location = useLocation();
 
 
   const [selectGenresActive, setselectGenresActive] = useState(true)
@@ -29,7 +30,7 @@ function MoviesComponent(props:any) {
 
   const {isAuthenticated,addFavorite,user,allFavorites}:any = useAuth()
   const [genres, setgenres] = useState([])
-  const {setformActive,MoviesFavorites,MoviesPopular,setMoviesPopular} = props
+  const {setformActive,MoviesFavorites,MoviesPopular,setMoviesPopular,localfromNavegite} = props
 
   useEffect(()=>{ 
     if(MoviesFavorites){  
@@ -116,7 +117,8 @@ function MoviesComponent(props:any) {
         responseMovies = response.data.results;
       }
 
-      if(MoviesPopular){  
+      if(localfromNavegite === "Popular"){
+         
         const response = await axios.get('https://api.themoviedb.org/3/discover/movie', {
           params: {
             api_key: keyApi,
@@ -126,6 +128,9 @@ function MoviesComponent(props:any) {
           }
         });
         responseMovies = response.data.results;
+        navigate(location.pathname, { replace: true })
+      }else if(localfromNavegite === "Favorites"){  
+        responseMovies = [];
       }
 
       const resFavorites = await allFavorites();

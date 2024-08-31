@@ -8,6 +8,7 @@ import NavBar from "../components/NavBar";
 import FormRegister from "../components/FormRegister"
 import SwiperComponent from "../components/SwiperComponent";
 import MoviesComponent from "../components/MoviesComponent"
+import { useLocation } from "react-router-dom";
 
 function PrincipalPage() {
 
@@ -21,6 +22,13 @@ function PrincipalPage() {
 
   const [MoviesPopular, setMoviesPopular] = useState(false);
 
+  const location = useLocation();
+  const [localfromNavegite, setlocalfromNavegite] = useState<string | undefined>(location.state?.from);
+
+  useEffect(() => {
+    // Captura el estado de la navegación cuando cambia
+    setlocalfromNavegite(location.state?.from);
+  }, [location.state?.from]);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -66,7 +74,7 @@ function PrincipalPage() {
     <div className="PrincipalPage">   
       <NavBar MoviesPopular={MoviesPopular} setMoviesPopular={setMoviesPopular} setMoviesFavorites={setMoviesFavorites} setformActive={setformActive} isAuthenticated={isAuthenticated}/> 
       <SwiperComponent setformActive={setformActive} MoviesSwiper={MoviesSwiper}/>
-      <MoviesComponent MoviesPopular={MoviesPopular} setMoviesPopular={setMoviesPopular} MoviesFavorites={MoviesFavorites} setformActive={setformActive} />
+      <MoviesComponent localfromNavegite={localfromNavegite} MoviesPopular={MoviesPopular} setMoviesPopular={setMoviesPopular} MoviesFavorites={MoviesFavorites} setformActive={setformActive} />
 
       {formActive? 
         <FormRegister 

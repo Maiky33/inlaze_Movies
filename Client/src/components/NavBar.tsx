@@ -5,7 +5,7 @@ import {useAuth} from "../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import {BiAlignRight, BiArrowFromBottom   } from "react-icons/bi";
 import { FaRegUserCircle } from "react-icons/fa";
-
+import { IoMdExit } from "react-icons/io";
 
 
 
@@ -30,7 +30,7 @@ function NavBar(props:any) {
       setformActive(true)
     }else{
       if(MovieID){
-        navigate("/")
+        navigate("/", { state: { from: 'Favorites' } })
       }else{
         setMoviesPopular(false)
         const res = await allFavorites()
@@ -44,7 +44,7 @@ function NavBar(props:any) {
       setformActive(true)
     }else{
       if(MovieID){  
-        navigate("/")
+        navigate("/", { state: { from: 'Popular' } })
       }else{  
         setMoviesPopular(true)
       }
@@ -76,12 +76,12 @@ function NavBar(props:any) {
       
       <div className="IconsNav"> 
         {Menu ? <BiArrowFromBottom  onClick={ClickMenuBurger} className="BurgerIcon" /> : <BiAlignRight  onClick={ClickMenuBurger} className="BurgerIcon" />}
+        <FaRegUserCircle className={isAuthenticated? "IconAuthentificated" :"Icon"} onClick={()=>{setformActive(true)}}/>
         {isAuthenticated?
           <>  
-            <FaRegUserCircle className="IconAuthentificated" onClick={ClickCloseSession}/>
+            <IoMdExit className="Icon" onClick={ClickCloseSession}/>
           </>
-          :
-          <FaRegUserCircle className="Icon" onClick={()=>{setformActive(true)}}/>
+          : null
         }
       </div>
 
