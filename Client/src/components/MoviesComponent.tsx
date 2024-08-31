@@ -153,7 +153,7 @@ function MoviesComponent(props:any) {
     } catch (error) {
       console.error('Error fetching popular movies:', error);
     }
-  }, [inputValue, selectGenres, keyApi, allFavorites,MoviesPopular,localfromNavegite]);
+  }, [inputValue, selectGenres, keyApi, allFavorites,MoviesPopular,localfromNavegite,location.pathname,navigate]);
 
   const onClickPageImage = (movie:any)=>{  
     if(!isAuthenticated){  
