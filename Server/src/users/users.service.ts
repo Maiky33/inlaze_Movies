@@ -38,7 +38,7 @@ export class UsersService {
       const cookieOptions:any = {
         httpOnly: true,
         secure: true, 
-        sameSite: 'None',
+        sameSite: 'Lax',
         maxAge: 24 * 60 * 60 * 1000,
       };
   
@@ -75,7 +75,7 @@ export class UsersService {
         const cookieOptions:any = {
           httpOnly: true,
           secure: true, 
-          sameSite: 'None',
+          sameSite: 'Lax',
           maxAge: 24 * 60 * 60 * 1000,
         };
     
@@ -122,7 +122,7 @@ export class UsersService {
       const cookieOptions:any = {
         httpOnly: true,
         secure: true, 
-        sameSite: 'None',
+        sameSite: 'Lax',
         maxAge: 24 * 60 * 60 * 1000,
       };
   
