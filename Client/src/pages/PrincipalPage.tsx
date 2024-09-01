@@ -71,7 +71,7 @@ function PrincipalPage() {
     <div className="PrincipalPage">   
       <NavBar setformActive={setformActive} isAuthenticated={isAuthenticated}/> 
       <SwiperComponent setformActive={setformActive} MoviesSwiper={MoviesSwiper}/>
-      <MoviesComponent localfromNavegite={localfromNavegite} setformActive={setformActive} />
+      <MoviesComponent localfromNavegite={localfromNavegite} setlocalfromNavegite={setlocalfromNavegite} setformActive={setformActive} />
 
       {formActive? 
         <FormRegister 

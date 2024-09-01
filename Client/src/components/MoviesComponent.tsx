@@ -31,23 +31,25 @@ function MoviesComponent(props:any) {
 
   const {isAuthenticated,addFavorite,user,allFavorites}:any = useAuth()
   const [genres, setgenres] = useState([])
-  const {setformActive,localfromNavegite} = props
+  const {setformActive,localfromNavegite,setlocalfromNavegite} = props
 
   const onHandleChange = async(e:any)=>{ 
-    navigate(location.pathname, { replace: true })
     if(!isAuthenticated){ 
       setformActive(true)
     }else{ 
+      navigate(location.pathname, { replace: true })
+      setlocalfromNavegite('')
       setinputValue(e.target.value)
     }
   }
 
 
   const onClickselectGener = async(item:any) =>{  
-    navigate(location.pathname, { replace: true })
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
+      navigate(location.pathname, { replace: true })
+      setlocalfromNavegite('')
       setMoviesPopular(false)
       setselectGenres(item)
     }
