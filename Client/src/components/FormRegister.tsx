@@ -8,7 +8,6 @@ function FormRegister(props:any) {
   const { 
     formState,
     OnsubmitRegister,
-    Errors,
     errors,
     register,
     setformState,
@@ -32,13 +31,7 @@ function FormRegister(props:any) {
       
         <p className="Welovehaving">We love having you back</p>
         <form onSubmit={OnsubmitRegister} className="FormContain">
-          { 
-            Errors.map((error:any, i:number)=>(  
-              <div className="ErrorPost" key={i}> 
-                {error}
-              </div>
-            ))
-          }
+          
           {
             !formState?
             <div className="containinputText"> 

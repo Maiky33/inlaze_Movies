@@ -12,7 +12,7 @@ import { useLocation } from "react-router-dom";
 
 function PrincipalPage() {
 
-  const {SingUp,SingIn,isAuthenticated,Errors,reloginverifyToken}:any = useAuth()
+  const {SingUp,SingIn,isAuthenticated,reloginverifyToken}:any = useAuth()
   const {register,handleSubmit,formState:{errors}} = useForm()
   const [formState, setformState] = useState(false)
   const [formActive, setformActive] = useState(false)
@@ -78,7 +78,6 @@ function PrincipalPage() {
           onSubmitSingUporSingIn={onSubmitSingUporSingIn}
           formState={formState}
           OnsubmitRegister={OnsubmitRegister}
-          Errors={Errors}
           errors={errors}
           register={register}
           setformState={setformState}
