@@ -119,14 +119,14 @@ function MoviesComponent(props:any) {
         navigate(location.pathname, { replace: true })
       }else if(localfromNavegite === "Favorites"){  
         setMoviesPopular(false)
-        responseMovies = [];
+        responseMovies = false;
         navigate(location.pathname, { replace: true })
       }
 
       const resFavorites = await allFavorites();
 
       if (resFavorites) {
-        if(responseMovies.length){  
+        if(responseMovies){  
           const newMoviesFavorites:any = responseMovies.map((item: any) => {
             const isFavorite = resFavorites.some((itemFavorite: any) => item.id === itemFavorite.id);
             return {
