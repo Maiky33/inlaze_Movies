@@ -22,6 +22,7 @@ function MoviesComponent(props:any) {
 
 
   const [selectGenresActive, setselectGenresActive] = useState(true)
+  const [MoviesPopular, setMoviesPopular] = useState(false)
 
   const [selectGenres, setselectGenres] = useState({
     id: 28,
@@ -30,20 +31,7 @@ function MoviesComponent(props:any) {
 
   const {isAuthenticated,addFavorite,user,allFavorites}:any = useAuth()
   const [genres, setgenres] = useState([])
-  const {setformActive,MoviesFavorites,MoviesPopular,setMoviesPopular,localfromNavegite} = props
-
-  useEffect(()=>{ 
-    if(MoviesFavorites){  
-      const newMoviesFavorites = MoviesFavorites.map((item:any)=>{  
-        return{ 
-          ...item,
-          favorite:true
-        }
-      })
-
-      setMovies(newMoviesFavorites)
-    }
-  },[MoviesFavorites])
+  const {setformActive,localfromNavegite} = props
 
   const onHandleChange =(e:any)=>{ 
     if(!isAuthenticated){ 
@@ -118,7 +106,7 @@ function MoviesComponent(props:any) {
       }
 
       if(localfromNavegite === "Popular"){
-         
+        setMoviesPopular(true)
         const response = await axios.get('https://api.themoviedb.org/3/discover/movie', {
           params: {
             api_key: keyApi,
@@ -130,7 +118,9 @@ function MoviesComponent(props:any) {
         responseMovies = response.data.results;
         navigate(location.pathname, { replace: true })
       }else if(localfromNavegite === "Favorites"){  
-        responseMovies = [];
+        setMoviesPopular(false)
+        responseMovies = await allFavorites();
+        navigate(location.pathname, { replace: true })
       }
 
       const resFavorites = await allFavorites();
@@ -167,7 +157,7 @@ function MoviesComponent(props:any) {
 
   useEffect(() => {
     fetchMovies();
-  }, [inputValue,selectGenres,isAuthenticated,fetchMovies,MoviesPopular]);
+  }, [inputValue,selectGenres,isAuthenticated,fetchMovies,localfromNavegite]);
 
   return (
     <div className="containerMoviesAndFiltersComponent">   
@@ -203,7 +193,7 @@ function MoviesComponent(props:any) {
       <div className="containerMoviesandtitle">
         {MoviesPopular? <p className="title">Popular</p> : null}
 
-        <div className={Movies.length< 5? "containerMoviesMin" :"containerMovies"}> 
+        <div className={Movies?.length< 5? "containerMoviesMin" :"containerMovies"}> 
           
           {Movies?.map((movie:any) => (
             <div  className="CardMovie"> 

@@ -2,7 +2,7 @@
 import "./scss/navBar.scss";
 import { useState } from "react";
 import {useAuth} from "../context/AuthContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {BiAlignRight, BiArrowFromBottom   } from "react-icons/bi";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoMdExit } from "react-icons/io";
@@ -11,10 +11,9 @@ import { IoMdExit } from "react-icons/io";
 
 function NavBar(props:any) {
 
-  const {LogOut,allFavorites}:any = useAuth()
-  const {isAuthenticated,setformActive,setMoviesFavorites,setMoviesPopular} = props
+  const {LogOut}:any = useAuth()
+  const {isAuthenticated,setformActive} = props
   const [Menu, setMenu] = useState(false);
-  const { MovieID }  = useParams();
   const navigate = useNavigate()
 
   const ClickMenuBurger = () => {
@@ -29,13 +28,7 @@ function NavBar(props:any) {
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
-      if(MovieID){
-        navigate("/", { state: { from: 'Favorites' } })
-      }else{
-        setMoviesPopular(false)
-        const res = await allFavorites()
-        setMoviesFavorites(res)
-      }
+      navigate("/", { state: { from: 'Favorites' } })
     }
   }
 
@@ -43,11 +36,7 @@ function NavBar(props:any) {
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
-      if(MovieID){  
-        navigate("/", { state: { from: 'Popular' } })
-      }else{  
-        setMoviesPopular(true)
-      }
+      navigate("/", { state: { from: 'Popular' } })
     }
   }
 

@@ -18,9 +18,6 @@ function PrincipalPage() {
   const [formActive, setformActive] = useState(false)
 
   const [MoviesSwiper, serMoviesSwiper] = useState([]);
-  const [MoviesFavorites, setMoviesFavorites] = useState([]);
-
-  const [MoviesPopular, setMoviesPopular] = useState(false);
 
   const location = useLocation();
   const [localfromNavegite, setlocalfromNavegite] = useState<string | undefined>(location.state?.from);
@@ -72,9 +69,9 @@ function PrincipalPage() {
 
   return (
     <div className="PrincipalPage">   
-      <NavBar MoviesPopular={MoviesPopular} setMoviesPopular={setMoviesPopular} setMoviesFavorites={setMoviesFavorites} setformActive={setformActive} isAuthenticated={isAuthenticated}/> 
+      <NavBar setformActive={setformActive} isAuthenticated={isAuthenticated}/> 
       <SwiperComponent setformActive={setformActive} MoviesSwiper={MoviesSwiper}/>
-      <MoviesComponent localfromNavegite={localfromNavegite} MoviesPopular={MoviesPopular} setMoviesPopular={setMoviesPopular} MoviesFavorites={MoviesFavorites} setformActive={setformActive} />
+      <MoviesComponent localfromNavegite={localfromNavegite} setformActive={setformActive} />
 
       {formActive? 
         <FormRegister 
