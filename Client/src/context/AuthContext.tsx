@@ -19,7 +19,7 @@ export const useAuth = ()=>{
 export const AuthProvider = ({children}:any)=>{    
 
     const [user, setUser] = useState<any>(null)
-    const [isAuthenticated, setisAuthenticated] = useState<any>(true)
+    const [isAuthenticated, setisAuthenticated] = useState<any>(false)
     const [Errors, setErrors] = useState<any>([])
 
     console.log("Errors",Errors)
