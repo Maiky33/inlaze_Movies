@@ -98,8 +98,8 @@ export class UsersService {
 
   async logOut(@Res() res: Response) {
     res.clearCookie('token', {
-      httpOnly: true, // Solo accesible desde el servidor
-      secure: process.env.NODE_ENV === 'production', // Solo en HTTPS si está en producción
+      httpOnly: true,
+      secure: true,
     });
 
     return res.status(HttpStatus.OK).json({
