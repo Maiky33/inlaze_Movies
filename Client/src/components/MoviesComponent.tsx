@@ -6,7 +6,7 @@ import { CiSearch } from "react-icons/ci";
 import { useAuth } from "../context/AuthContext";
 import { FaHeart } from "react-icons/fa";
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 
