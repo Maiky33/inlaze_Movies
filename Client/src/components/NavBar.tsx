@@ -76,7 +76,7 @@ function NavBar(props:any) {
       
       <div className="IconsNav"> 
         {Menu ? <BiArrowFromBottom  onClick={ClickMenuBurger} className="BurgerIcon" /> : <BiAlignRight  onClick={ClickMenuBurger} className="BurgerIcon" />}
-        <FaRegUserCircle className={isAuthenticated? "IconAuthentificated" :"Icon"} onClick={()=>{setformActive(true)}}/>
+        <FaRegUserCircle className={isAuthenticated? "IconAuthentificated" :"Icon"} onClick={()=>{!isAuthenticated?setformActive(true):null}}/>
         {isAuthenticated?
           <>  
             <IoMdExit className="Icon" onClick={ClickCloseSession}/>
