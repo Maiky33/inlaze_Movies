@@ -116,11 +116,11 @@ function MoviesComponent(props:any) {
           }
         });
         responseMovies = response.data.results;
-        navigate(location.pathname, { replace: true })
+        // navigate(location.pathname, { replace: true })
       }else if(localfromNavegite === "Favorites"){  
         setMoviesPopular(false)
         responseMovies = false;
-        navigate(location.pathname, { replace: true })
+        // navigate(location.pathname, { replace: true })
       }
 
       const resFavorites = await allFavorites();
@@ -152,7 +152,7 @@ function MoviesComponent(props:any) {
     } catch (error) {
       console.error('Error fetching popular movies:', error);
     }
-  }, [inputValue, selectGenres, keyApi, allFavorites,localfromNavegite,location.pathname,navigate]);
+  }, [inputValue, selectGenres, keyApi, allFavorites,localfromNavegite,navigate]);
 
   const onClickPageImage = (movie:any)=>{  
     if(!isAuthenticated){  
