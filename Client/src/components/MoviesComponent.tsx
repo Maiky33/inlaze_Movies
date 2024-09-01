@@ -119,23 +119,32 @@ function MoviesComponent(props:any) {
         navigate(location.pathname, { replace: true })
       }else if(localfromNavegite === "Favorites"){  
         setMoviesPopular(false)
-        responseMovies = await allFavorites();
+        responseMovies = [];
         navigate(location.pathname, { replace: true })
       }
 
       const resFavorites = await allFavorites();
 
       if (resFavorites) {
-        const newMoviesFavorites:any = responseMovies.map((item: any) => {
-          const isFavorite = resFavorites.some((itemFavorite: any) => item.id === itemFavorite.id);
+        if(responseMovies.length){  
+          const newMoviesFavorites:any = responseMovies.map((item: any) => {
+            const isFavorite = resFavorites.some((itemFavorite: any) => item.id === itemFavorite.id);
+            return {
+              ...item,
+              favorite: isFavorite,
+            };
+          });
+          setMovies(newMoviesFavorites);
+        }else{  
+          const newMoviesFavorites:any = resFavorites.map((item: any) => {
+            return {
+              ...item,
+              favorite: true,
+            };
+          });
+          setMovies(newMoviesFavorites);
+        }
 
-          return {
-            ...item,
-            favorite: isFavorite,
-          };
-        });
-
-        setMovies(newMoviesFavorites);
       } else {
         setMovies(responseMovies);
       }
