@@ -39,7 +39,7 @@ function NavBar(props:any) {
     }
   }
 
-  const onClickPopular = async()=>{  
+  const onClickPopular = ()=>{  
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
@@ -49,6 +49,11 @@ function NavBar(props:any) {
         setMoviesPopular(true)
       }
     }
+  }
+
+  const onclickUserCircle = ()=>{ 
+    if(isAuthenticated) return
+    setformActive(true)
   }
 
   return (
@@ -76,7 +81,7 @@ function NavBar(props:any) {
       
       <div className="IconsNav"> 
         {Menu ? <BiArrowFromBottom  onClick={ClickMenuBurger} className="BurgerIcon" /> : <BiAlignRight  onClick={ClickMenuBurger} className="BurgerIcon" />}
-        <FaRegUserCircle className={isAuthenticated? "IconAuthentificated" :"Icon"} onClick={()=>{!isAuthenticated?setformActive(true):null}}/>
+        <FaRegUserCircle className={isAuthenticated? "IconAuthentificated" :"Icon"} onClick={()=>{onclickUserCircle}}/>
         {isAuthenticated?
           <>  
             <IoMdExit className="Icon" onClick={ClickCloseSession}/>
