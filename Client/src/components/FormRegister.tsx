@@ -29,7 +29,7 @@ function FormRegister(props:any) {
           </div>
         </div>
       
-        {formState? <p className="Welovehaving">We love having you back</p> : null}
+        <p className="Welovehaving">{formState? "We love having you back": ""}</p>
         <form onSubmit={OnsubmitRegister} className="FormContain">
           
           {
