@@ -81,7 +81,7 @@ function NavBar(props:any) {
       
       <div className="IconsNav"> 
         {Menu ? <BiArrowFromBottom  onClick={ClickMenuBurger} className="BurgerIcon" /> : <BiAlignRight  onClick={ClickMenuBurger} className="BurgerIcon" />}
-        <FaRegUserCircle className={isAuthenticated? "IconAuthentificated" :"Icon"} onClick={()=>{onclickUserCircle}}/>
+        <FaRegUserCircle className={isAuthenticated? "IconAuthentificated" :"Icon"} onClick={onclickUserCircle}/>
         {isAuthenticated?
           <>  
             <IoMdExit className="Icon" onClick={ClickCloseSession}/>
