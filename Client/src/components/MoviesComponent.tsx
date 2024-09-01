@@ -18,7 +18,6 @@ function MoviesComponent(props:any) {
 
   const [inputValue, setinputValue] = useState("")
   const navigate = useNavigate()
-  const location = useLocation();
 
 
   const [selectGenresActive, setselectGenresActive] = useState(true)
@@ -152,7 +151,7 @@ function MoviesComponent(props:any) {
     } catch (error) {
       console.error('Error fetching popular movies:', error);
     }
-  }, [inputValue, selectGenres, keyApi, allFavorites,localfromNavegite,navigate]);
+  }, [inputValue, selectGenres, keyApi, allFavorites,localfromNavegite]);
 
   const onClickPageImage = (movie:any)=>{  
     if(!isAuthenticated){  
