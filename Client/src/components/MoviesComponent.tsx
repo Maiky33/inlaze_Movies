@@ -6,7 +6,7 @@ import { CiSearch } from "react-icons/ci";
 import { useAuth } from "../context/AuthContext";
 import { FaHeart } from "react-icons/fa";
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 
@@ -18,6 +18,7 @@ function MoviesComponent(props:any) {
 
   const [inputValue, setinputValue] = useState("")
   const navigate = useNavigate()
+  const location = useLocation();
 
 
   const [selectGenresActive, setselectGenresActive] = useState(true)
@@ -36,6 +37,7 @@ function MoviesComponent(props:any) {
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
+      navigate(location.pathname, { replace: true })
       setinputValue(e.target.value)
     }
   }
@@ -45,6 +47,7 @@ function MoviesComponent(props:any) {
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
+      navigate(location.pathname, { replace: true })
       setMoviesPopular(false)
       setselectGenres(item)
     }
@@ -115,7 +118,6 @@ function MoviesComponent(props:any) {
           }
         });
         responseMovies = response.data.results;
-        // navigate(location.pathname, { replace: true })
       }else if(localfromNavegite === "Favorites"){  
         setMoviesPopular(false)
         responseMovies = false;
