@@ -37,8 +37,8 @@ function MoviesComponent(props:any) {
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
+      await navigate(location.pathname, { replace: true })
       setinputValue(e.target.value)
-      navigate(location.pathname, { replace: true })
     }
   }
 
@@ -47,9 +47,10 @@ function MoviesComponent(props:any) {
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
+      await navigate(location.pathname, { replace: true })
+
       setMoviesPopular(false)
       setselectGenres(item)
-      navigate(location.pathname, { replace: true })
     }
   }
 
