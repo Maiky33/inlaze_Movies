@@ -99,7 +99,8 @@ export class UsersService {
   async logOut(@Res() res: Response) {
     res.clearCookie('token', {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none',
     });
 
     return res.status(HttpStatus.OK).json({
