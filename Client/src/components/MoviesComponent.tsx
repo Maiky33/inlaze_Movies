@@ -34,21 +34,20 @@ function MoviesComponent(props:any) {
   const {setformActive,localfromNavegite} = props
 
   const onHandleChange = async(e:any)=>{ 
+    navigate(location.pathname, { replace: true })
     if(!isAuthenticated){ 
       setformActive(true)
-    }else{
-      await navigate(location.pathname, { replace: true })
+    }else{ 
       setinputValue(e.target.value)
     }
   }
 
 
   const onClickselectGener = async(item:any) =>{  
+    navigate(location.pathname, { replace: true })
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
-      await navigate(location.pathname, { replace: true })
-
       setMoviesPopular(false)
       setselectGenres(item)
     }
