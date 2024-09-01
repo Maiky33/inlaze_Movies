@@ -33,23 +33,23 @@ function MoviesComponent(props:any) {
   const [genres, setgenres] = useState([])
   const {setformActive,localfromNavegite} = props
 
-  const onHandleChange =(e:any)=>{ 
+  const onHandleChange = async(e:any)=>{ 
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
-      navigate(location.pathname, { replace: true })
       setinputValue(e.target.value)
+      navigate(location.pathname, { replace: true })
     }
   }
 
 
-  const onClickselectGener = (item:any) =>{  
+  const onClickselectGener = async(item:any) =>{  
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
-      navigate(location.pathname, { replace: true })
       setMoviesPopular(false)
       setselectGenres(item)
+      navigate(location.pathname, { replace: true })
     }
   }
 
@@ -121,7 +121,6 @@ function MoviesComponent(props:any) {
       }else if(localfromNavegite === "Favorites"){  
         setMoviesPopular(false)
         responseMovies = false;
-        // navigate(location.pathname, { replace: true })
       }
 
       const resFavorites = await allFavorites();
