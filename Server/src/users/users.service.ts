@@ -38,7 +38,7 @@ export class UsersService {
       const cookieOptions:any = {
         httpOnly: true,
         secure: true, 
-        sameSite: 'Lax',
+        sameSite: 'None',
         maxAge: 24 * 60 * 60 * 1000,
       };
   
@@ -75,7 +75,7 @@ export class UsersService {
         const cookieOptions:any = {
           httpOnly: true,
           secure: true, 
-          sameSite: 'Lax',
+          sameSite: 'None',
           maxAge: 24 * 60 * 60 * 1000,
         };
     
@@ -122,7 +122,7 @@ export class UsersService {
       const cookieOptions:any = {
         httpOnly: true,
         secure: true, 
-        sameSite: 'Lax',
+        sameSite: 'None',
         maxAge: 24 * 60 * 60 * 1000,
       };
   
@@ -204,13 +204,4 @@ export class UsersService {
     return rest
   }
 
-
-
-  findAll() {
-    return `This action returns all users`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
 }
