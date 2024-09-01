@@ -35,10 +35,11 @@ export class UsersService {
 
       const {access_token, refresh_token} = await this.generateTokens(user)
 
-      const cookieOptions = {
-        httpOnly: true, // Solo accesible desde el servidor
-        secure: process.env.NODE_ENV === 'production', // Solo en HTTPS si está en producción
-        maxAge: 24 * 60 * 60 * 1000, // 1 día de expiración
+      const cookieOptions:any = {
+        httpOnly: true,
+        secure: true, 
+        sameSite: 'None',
+        maxAge: 24 * 60 * 60 * 1000,
       };
   
       res.cookie('token', access_token, cookieOptions);
@@ -71,10 +72,11 @@ export class UsersService {
         const Payload = {sub: user._id, email: user.email, name:user.name}
         const {access_token,refresh_token} = await this.generateTokens(Payload)
 
-        const cookieOptions = {
-          httpOnly: true, // Solo accesible desde el servidor
-          secure: process.env.NODE_ENV === 'production', // Solo en HTTPS si está en producción
-          maxAge: 24 * 60 * 60 * 1000, // 1 día de expiración
+        const cookieOptions:any = {
+          httpOnly: true,
+          secure: true, 
+          sameSite: 'None',
+          maxAge: 24 * 60 * 60 * 1000,
         };
     
         res.cookie('token', access_token, cookieOptions);
@@ -117,10 +119,11 @@ export class UsersService {
 
       const {access_token, refresh_token} = await this.generateTokens(Payload)
   
-      const cookieOptions = {
-        httpOnly: true, // Solo accesible desde el servidor
-        secure: process.env.NODE_ENV === 'production', // Solo en HTTPS si está en producción
-        maxAge: 24 * 60 * 60 * 1000, // 1 día de expiración
+      const cookieOptions:any = {
+        httpOnly: true,
+        secure: true, 
+        sameSite: 'None',
+        maxAge: 24 * 60 * 60 * 1000,
       };
   
       res.cookie('token', access_token, cookieOptions);
