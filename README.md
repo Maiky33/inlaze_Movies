@@ -60,7 +60,7 @@ Crea un archivo .env en la raíz de la carpeta del cliente con el siguiente cont
 
 env
 
-REACT_APP_ACCESS_KEY="9d5ff5a105f369ecb52de2149bc6efbd"
+REACT_APP_ACCESS_KEY=""
 
 Instala las dependencias del cliente:
 
