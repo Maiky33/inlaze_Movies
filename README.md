@@ -42,11 +42,12 @@ bash
 
 npm install
 
+
 Inicia el servidor:
 
 bash
 
-    npm run start
+    npm run start:dev
 
 Configuración del Cliente (Frontend)
 
