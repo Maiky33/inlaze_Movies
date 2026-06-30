@@ -9,9 +9,6 @@ export class Favorite {
 
   @Prop({ required: true })
   id: number;
-  
-  @Prop({default: true})
-  favorite:boolean
 
   @Prop()
   title: string;
@@ -36,7 +33,6 @@ export class Favorite {
 
   @Prop()
   genre_ids: number[];
-
 }
 
 export const FavoriteSchema = SchemaFactory.createForClass(Favorite);

@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useCallback} from "react";
-import {registerRequest,loginRequest,logOutRequest,reloginverifyTokenRequest,postFavoriteMovie,getallFavorites} from "../api/auth.js";
+import {registerRequest,loginRequest,logOutRequest,reloginverifyTokenRequest} from "../api/auth.js";
 
 
 export const AuthContext = createContext<any>(undefined)
@@ -76,24 +76,6 @@ export const AuthProvider = ({children}:any)=>{
             setErrors([error?.response?.data?.message])
         }
     }, []);
-
-    const addFavorite = async (user:any, movie:any) => {
-        try {
-            const response = await postFavoriteMovie(movie);
-            return response.data
-        } catch (error) {
-            console.error('Error al agregar a favoritos:', error);
-        }
-    };
-    
-    const allFavorites = async()=>{ 
-        try {
-            const response = await getallFavorites();
-            return response.data
-        } catch (error) {
-            console.error('Error al traer favoritos:', error);
-        }
-    }
     
 
     return( 
@@ -105,8 +87,6 @@ export const AuthProvider = ({children}:any)=>{
                 LogOut,
                 isAuthenticated,
                 reloginverifyToken,
-                addFavorite,
-                allFavorites
             }}>  
             {children}
         </AuthContext.Provider>

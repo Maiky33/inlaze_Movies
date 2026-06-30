@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Req, Res, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+// import { UpdateUserDto } from './dto/update-user.dto';
 import { Response } from 'express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth';
 
@@ -21,7 +21,7 @@ export class UsersController {
   }
 
   @Post('logout')
-  logout(@Body() createUserDto: CreateUserDto, @Res() res:Response) {
+  logout(@Res() res:Response) {
     return this.usersService.logOut(res);
   }
 

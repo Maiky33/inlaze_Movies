@@ -1,47 +1,29 @@
 import axios from "axios";
 
-let API = 'https://inlaze-movies-server.vercel.app/users'
-let APIfavorites = 'https://inlaze-movies-server.vercel.app'
+let APIusers = 'http://localhost:4000/users';
 
 
-export const registerRequest = async (user) => axios.post(`${API}/register`, user,{
+export const registerRequest = async (user) => axios.post(`${APIusers}/register`, user,{
     withCredentials: true ,
     headers: {
       'Content-Type': 'application/json'
     }
 });
 
-export const loginRequest = async (user) => axios.post(`${API}/login`, user, {
+export const loginRequest = async (user) => axios.post(`${APIusers}/login`, user, {
     withCredentials: true ,
     headers: {
       'Content-Type': 'application/json'
     }
 });
 
-export const logOutRequest = async (user) => axios.post(`${API}/logout`, user,{
+export const logOutRequest = async (user) => axios.post(`${APIusers}/logout`, user,{
     withCredentials: true ,
     headers: {
       'Content-Type': 'application/json'
     }
 });
 
-export const reloginverifyTokenRequest = async () => axios.get(`${API}/relogin`,{
-    withCredentials: true 
-});
-
-
-// favorites endpoint
-export const getallFavorites = async () => axios.get(`${APIfavorites}/favorites`,{
-    withCredentials: true 
-});
-
-export const postFavoriteMovie = async (movie) => axios.post(`${APIfavorites}/favorites`, movie, {
-    withCredentials: true,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
-
-export const deletedFavoriteMovie = async () => axios.delete(`${APIfavorites}/favorites`,{
+export const reloginverifyTokenRequest = async () => axios.get(`${APIusers}/relogin`,{
     withCredentials: true 
 });

@@ -4,9 +4,11 @@ import "./scss/moviesComponent.scss"
 import { IoIosArrowDown } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { useAuth } from "../context/AuthContext";
+import { useFavoriteCTX } from "../context/FavoritesContext";
 import { FaHeart } from "react-icons/fa";
 import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
 import { useLocation, useNavigate } from "react-router-dom";
+import  Modal from "../components/ModalFavorite"
 
 
 
@@ -16,10 +18,16 @@ function MoviesComponent(props:any) {
   
   const [Movies, setMovies] = useState([])
 
+  const [OnlyMovieDelete, setOnlyMovieDelete] = useState([])
+  const [ModalOpen, setModalOpen] = useState(false)
+
+
   const [inputValue, setinputValue] = useState("")
   const navigate = useNavigate()
   const location = useLocation();
 
+  const {isAuthenticated, user}:any = useAuth()
+  const {allFavorites, toogleFavorite}:any = useFavoriteCTX()
 
   const [selectGenresActive, setselectGenresActive] = useState(true)
   const [MoviesPopular, setMoviesPopular] = useState(false)
@@ -29,7 +37,7 @@ function MoviesComponent(props:any) {
     name: "Action"
   })
 
-  const {isAuthenticated,addFavorite,user,allFavorites}:any = useAuth()
+
   const [genres, setgenres] = useState([])
   const {setformActive,localfromNavegite,setlocalfromNavegite} = props
 
@@ -55,25 +63,50 @@ function MoviesComponent(props:any) {
     }
   }
 
+  const onClickConnfirmModal = async(OnlyMovieDelete:any) => {  
+
+    if(OnlyMovieDelete){  
+
+      const newMoviesFavorites = Movies.filter(
+        (item: any) => item.id !== OnlyMovieDelete.id
+      );
+
+      setMovies(newMoviesFavorites)
+      await toogleFavorite(user.user.id,OnlyMovieDelete)
+
+    }
+
+    setModalOpen(false)
+  }
+
+  const onClickCancelModal = () => {  
+    setModalOpen(false)
+  }
+
   const onClickFavoriteCard = (itemmovie:any) =>{  
     if(!isAuthenticated){ 
       setformActive(true)
     }else{
 
-      const newMoviesFavorites:any = Movies.map((item: any) => {
-        if(itemmovie.id === item.id){ 
-          return{
-            ...item,
-            favorite:true
+      if(!itemmovie.favorite){ 
+        const newMoviesFavorites:any = Movies.map((item: any) => {
+          if(itemmovie.id === item.id){ 
+            return{
+              ...item,
+              favorite:!itemmovie.favorite
+            }
+          }else{  
+            return item
           }
-        }else{  
-          return item
-        }
-        
-      });
+          
+        });
 
-      setMovies(newMoviesFavorites)
-      addFavorite(user.user.id,itemmovie)
+        setMovies(newMoviesFavorites)
+        toogleFavorite(user.user.id,itemmovie)
+      }else{  
+        setOnlyMovieDelete(itemmovie)
+        setModalOpen(true)
+      }
     }
   }
 
@@ -172,6 +205,9 @@ function MoviesComponent(props:any) {
 
   return (
     <div className="containerMoviesAndFiltersComponent">   
+      
+      <Modal open={ModalOpen} title={"Esta Seguro?"} message={"se va eliminar su favorito"} onConfirm={()=>onClickConnfirmModal(OnlyMovieDelete)} onCancel={onClickCancelModal}/>
+
       <div className="ColumnFilters"> 
         
         <p>Search</p>

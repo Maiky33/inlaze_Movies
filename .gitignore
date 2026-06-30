@@ -1,1 +1,17 @@
-.vercel
+# Dependencias
+node_modules/
+
+# Variables de entorno
+.env
+
+# Build
+dist/
+
+# Vercel
+.vercel/
+
+# VS Code
+.vscode/
+
+# TypeScript incremental
+*.tsbuildinfo

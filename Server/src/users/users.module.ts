@@ -3,8 +3,6 @@ import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { MongooseModule} from '@nestjs/mongoose';
 import { UserSchema, User } from './entities/user.entity';
-import { JwtService } from '@nestjs/jwt';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
@@ -17,7 +15,7 @@ import { JwtModule } from '@nestjs/jwt';
 
   ],
   controllers: [UsersController],
-  providers: [UsersService, JwtService,JwtAuthGuard],
+  providers: [UsersService],
   exports: [UsersService]
 })
 export class UsersModule {}

@@ -9,8 +9,22 @@ export class FavoritesService {
     @InjectModel(Favorite.name) 
     private favoriteModel: Model<FavoriteDocument>,
   ) {}
+  
+  async findAll(userId: string): Promise<Favorite[]> {
+    return this.favoriteModel.find({ userId }).exec();
+  }
 
-  async create(userId: string, movie: any,favorite: boolean = true): Promise<Favorite> {
+  async toogleFavorite(userId: string, movie: any,favorite: boolean = true): Promise<Favorite | {message:string}> {
+
+    const movieInDb = await this.favoriteModel.findOne({userId, id:movie.id}).exec()
+
+    if (movieInDb) {
+      await this.favoriteModel.findByIdAndDelete(movieInDb._id);
+      return {
+        message: "Favorite removed"
+      };
+    }
+
     const newFavorite = new this.favoriteModel({
       userId,
       favorite,
@@ -19,11 +33,4 @@ export class FavoritesService {
     return newFavorite.save();
   }
 
-  async findAll(userId: string): Promise<Favorite[]> {
-    return this.favoriteModel.find({ userId }).exec();
-  }
-
-  async remove(userId: string, movieId: string): Promise<any> {
-    return this.favoriteModel.deleteOne({ userId, movieId }).exec();
-  }
 }

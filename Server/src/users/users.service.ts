@@ -1,14 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import {User, UserDocument} from './entities/user.entity'
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
-import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Res } from '@nestjs/common';
+import { Response } from 'express';
 
 
 type Tokens = { 
@@ -108,9 +107,9 @@ export class UsersService {
     });
   }
 
-  async reloginUser(@Res() res: Response){
+  async reloginUser(@Res() res: any){
     try {
-      const userDatares:any = res.req.user
+      const userDatares:any = res?.req?.user
       const user = await this.userModel.findOne({email:userDatares.email})
       if (!user) {
         throw new HttpException('User not found',HttpStatus.UNAUTHORIZED)
@@ -197,12 +196,6 @@ export class UsersService {
     } catch (error) {
       return null; // Token inválido
     }
-  }
-
-  private removePassword(user){ 
-
-    const {password, ...rest} = user.toObject()
-    return rest
   }
 
 }
